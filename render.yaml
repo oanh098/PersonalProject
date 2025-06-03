@@ -1,5 +1,9 @@
 services:
   - type: web
-    name: personalproject
-    buildCommand: dotnet build
-    startCommand: dotnet PersonalProject.dll
+    name: dotnet-mvc-app
+    runtime: docker
+    repo: https://github.com/oanh098/PersonalProject.git
+    buildCommand: 'dotnet publish -c Release -o out'
+    startCommand: 'dotnet out/PersonalProject.dll'
+    plan: starter
+    
