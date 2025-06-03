@@ -11,9 +11,13 @@ builder.Services.AddDbContext<PersonalProjectContext>(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<PersonalProjectContext>();
+    context.Database.Migrate(); // <-- Add this line to apply migrations
     SeedData.Initialize(services);
 }
 // Configure the HTTP request pipeline.
