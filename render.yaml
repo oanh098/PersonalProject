@@ -1,6 +1,5 @@
 services:
   - type: web
     name: personalproject
-    runtime: dotnet
     buildCommand: dotnet build
     startCommand: dotnet PersonalProject.dll
