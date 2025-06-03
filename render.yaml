@@ -3,6 +3,4 @@ services:
     name: dotnet-mvc-app
     runtime: docker
     repo: https://github.com/oanh098/PersonalProject.git
-    buildCommand: 'dotnet publish -c Release -o out'
-    dockerCommand: 'dotnet out/PersonalProject.dll'
     plan: starter
