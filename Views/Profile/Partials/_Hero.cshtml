@@ -1,0 +1,36 @@
+﻿@using Microsoft.Extensions.Localization
+
+<section id="hero" class="hero section dark-background">
+
+    <img src="/assets/images/profile/oanh-hero-bg.png" alt="" data-aos="fade-in" class="aos-init aos-animate" />
+
+    
+
+   <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100"></div>
+        <h2>Alex Smith</h2>
+        <p>
+            I'm
+            <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer">D</span>
+            <span class="typed-cursor" aria-hidden="true">|</span>
+            <span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span>
+            <span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span>
+        </p>
+    </div>         
+</section>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var typedElement = document.querySelector('.typed');
+        if (typedElement) {
+            var items = typedElement.getAttribute('data-typed-items');
+            if (items) {
+                new Typed('.typed', {
+                    strings: items.split(',').map(s => s.trim()),
+                    typeSpeed: 100,
+                    backSpeed: 50,
+                    backDelay: 2000,
+                    loop: true
+                });
+            }
+        }
+    });
+</script>

@@ -29,6 +29,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthorization();
@@ -38,5 +39,12 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+app.MapControllerRoute(
+    name: "Skills",
+    pattern: "{controller=Skills}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "Profile",
+    pattern: "{controller=Profile}/{action=Index}/{id?}");
 
 app.Run();

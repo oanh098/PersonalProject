@@ -1,0 +1,83 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@{
+    Layout = "_ProfileLayout";
+    ViewData["Title"] = "Profile";
+}
+
+
+@model PersonalProject.Models.ProfileIndexViewModels
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_ProfileLayout";
+}
+@await Html.PartialAsync("Partials/_Hero")
+@await Html.PartialAsync("Partials/_About")
+@await Html.PartialAsync("Partials/_Stats")
+@await Html.PartialAsync("Partials/_Skills")
+@await Html.PartialAsync("Partials/_Resume")
+@await Html.PartialAsync("Partials/_Portfolio")
+
+
+<button type="button" id="toggleTableBtn" class="btn btn-secondary mb-2">Show/Hide Table</button>
+
+
+<div id="skillsTableSection" style="display: none;">
+    <h1>Index</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" > 
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill.FirstOrDefault().Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill.FirstOrDefault().Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill.FirstOrDefault().CreatedAt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Skill.FirstOrDefault().UpdatedAt)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Skill) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdatedAt)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+
+<script>
+    document.getElementById('toggleTableBtn').addEventListener('click', function () {
+        var section = document.getElementById('skillsTableSection');
+        section.style.display = section.style.display === 'none' ? '' : 'none';
+    });
+</script>

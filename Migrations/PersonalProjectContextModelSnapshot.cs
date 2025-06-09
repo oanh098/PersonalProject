@@ -48,6 +48,68 @@ namespace PersonalProject.Migrations
 
                     b.ToTable("Movie");
                 });
+
+            modelBuilder.Entity("PersonalProject.Models.Portfolio", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("DetailsLink")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Portfolio");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.Skill", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<int?>("SkillId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SkillId");
+
+                    b.ToTable("Skill");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.Skill", b =>
+                {
+                    b.HasOne("PersonalProject.Models.Skill", null)
+                        .WithMany("Skills")
+                        .HasForeignKey("SkillId");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.Skill", b =>
+                {
+                    b.Navigation("Skills");
+                });
 #pragma warning restore 612, 618
         }
     }
