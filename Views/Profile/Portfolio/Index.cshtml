@@ -26,14 +26,16 @@
             <td>
                 @if (!string.IsNullOrEmpty(item.Image))
                 {
-                    <img src="@item.Image" alt="Portfolio Image" style="max-width:100px;" />
+                    <img src="~/images/profile/portfolio/@item.Image" 
+                    alt="Portfolio Image" width="50" 
+                    height="50" style="object-fit:cover;" />
                 }
             </td>
             <td>@item.Description</td>
             <td>
                 @if (!string.IsNullOrEmpty(item.DetailsLink))
                 {
-                    <a href="@item.DetailsLink" target="_blank">Details</a>
+                    <a href="@item.DetailsLink" target="_blank">Details: @item.DetailsLink</a>
                 }
             </td>
             <td>

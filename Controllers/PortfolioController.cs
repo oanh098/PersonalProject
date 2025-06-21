@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PersonalProject.Data;
 using PersonalProject.Models;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace PersonalProject.Controllers
 {
@@ -50,10 +52,26 @@ namespace PersonalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Image,Description,DetailsLink")] Portfolio portfolio)
+        public async Task<IActionResult> Create([Bind("Id,Description,DetailsLink")] Portfolio portfolio, IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
+                if (ImageFile != null && ImageFile.Length > 0)
+                {
+                    var fileName = Path.GetFileName(ImageFile.FileName);
+                    var folderPath = Path.Combine("wwwroot", "images", "profile", "portfolio");
+                    Directory.CreateDirectory(folderPath); // Ensure the folder exists
+                    var filePath = Path.Combine(folderPath, fileName);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await ImageFile.CopyToAsync(stream);
+                    }
+
+                    // Save only the file name to the database
+                    portfolio.Image = fileName;
+                }
+
                 _context.Add(portfolio);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

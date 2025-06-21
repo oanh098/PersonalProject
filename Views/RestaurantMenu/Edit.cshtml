@@ -1,0 +1,169 @@
+@model PersonalProject.Models.Restaurant.RestaurantMenu
+
+@{
+    ViewData["Title"] = "Edit";
+}
+@* - Save thi mất hình cũ, *@
+<h1>Edit </h1>
+
+<h4>RestaurantMenu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RestaurantId" class="control-label"></label>
+                <input asp-for="RestaurantId" class="form-control" />
+                <span asp-validation-for="RestaurantId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedAt" class="control-label"></label>
+                <input asp-for="CreatedAt" class="form-control" />
+                <span asp-validation-for="CreatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="UpdatedAt" class="control-label"></label>
+                <input asp-for="UpdatedAt" class="form-control" />
+                <span asp-validation-for="UpdatedAt" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ImageUrl" class="control-label">Image</label>
+                <input type="file" name="ImageFile" class="form-control" />
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <div class="">
+                        <img src="~/images/restaurant/menu/@Model.ImageUrl" alt="Current Image" 
+                        class="img-thumbnail" style="max-height: 150px;" />
+                    </div>
+                }
+                <input type="hidden" asp-for="ImageUrl" />
+
+                @* <input asp-for="ImageUrl" type="file" name="ImageFile" class="form-control" /> *@
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Category" class="control-label"></label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsAvailable" /> @Html.DisplayNameFor(model => model.IsAvailable)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpecialInstructions" class="control-label"></label>
+                <input asp-for="SpecialInstructions" class="form-control" />
+                <span asp-validation-for="SpecialInstructions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ingredients" class="control-label"></label>
+                <input asp-for="Ingredients" class="form-control" />
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NutritionalInfo" class="control-label"></label>
+                <input asp-for="NutritionalInfo" class="form-control" />
+                <span asp-validation-for="NutritionalInfo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PreparationTime" class="control-label"></label>
+                <input asp-for="PreparationTime" class="form-control" />
+                <span asp-validation-for="PreparationTime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ServingSize" class="control-label"></label>
+                <input asp-for="ServingSize" class="form-control" />
+                <span asp-validation-for="ServingSize" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SpicinessLevel" class="control-label"></label>
+                <input asp-for="SpicinessLevel" class="form-control" />
+                <span asp-validation-for="SpicinessLevel" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DietaryRestrictions" class="control-label"></label>
+                <input asp-for="DietaryRestrictions" class="form-control" />
+                <span asp-validation-for="DietaryRestrictions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CuisineType" class="control-label"></label>
+                <input asp-for="CuisineType" class="form-control" />
+                <span asp-validation-for="CuisineType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ChefRecommendation" class="control-label"></label>
+                <input asp-for="ChefRecommendation" class="form-control" />
+                <span asp-validation-for="ChefRecommendation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Allergens" class="control-label"></label>
+                <input asp-for="Allergens" class="form-control" />
+                <span asp-validation-for="Allergens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CookingMethod" class="control-label"></label>
+                <input asp-for="CookingMethod" class="form-control" />
+                <span asp-validation-for="CookingMethod" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PairingSuggestions" class="control-label"></label>
+                <input asp-for="PairingSuggestions" class="form-control" />
+                <span asp-validation-for="PairingSuggestions" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CustomerReviews" class="control-label"></label>
+                <input asp-for="CustomerReviews" class="form-control" />
+                <span asp-validation-for="CustomerReviews" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SeasonalAvailability" class="control-label"></label>
+                <input asp-for="SeasonalAvailability" class="form-control" />
+                <span asp-validation-for="SeasonalAvailability" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PortionSize" class="control-label"></label>
+                <input asp-for="PortionSize" class="form-control" />
+                <span asp-validation-for="PortionSize" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="IsSpecial" /> @Html.DisplayNameFor(model => model.IsSpecial)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+    <div class="col-md-4">
+            <label asp-for="ImageUrl" class="control-label"></label>
+            <img src="~/images/restaurant/menu/@Model.ImageUrl" 
+            alt="Menu Image" class="img-fluid" />
+            
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

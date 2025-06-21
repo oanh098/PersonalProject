@@ -5,14 +5,6 @@
       "PackagePath": "staticwebassets\\PersonalProject.px2nmzcfck.bundle.scp.css"
     },
     {
-      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\assets\\css\\profile.css",
-      "PackagePath": "staticwebassets\\assets\\css\\profile.css"
-    },
-    {
-      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\assets\\css\\profile.css.map",
-      "PackagePath": "staticwebassets\\assets\\css\\profile.css.map"
-    },
-    {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\assets\\images\\PhotoFolio\\apple-touch-icon.png",
       "PackagePath": "staticwebassets\\assets\\images\\PhotoFolio\\apple-touch-icon.png"
     },
@@ -1233,14 +1225,6 @@
       "PackagePath": "staticwebassets\\assets\\images\\up-construction-images\\testimonials\\testimonials-5.jpg"
     },
     {
-      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\assets\\js\\profile.js",
-      "PackagePath": "staticwebassets\\assets\\js\\profile.js"
-    },
-    {
-      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\assets\\js\\restaurant.js",
-      "PackagePath": "staticwebassets\\assets\\js\\restaurant.js"
-    },
-    {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\assets\\vendor\\aos\\aos.cjs.js",
       "PackagePath": "staticwebassets\\assets\\vendor\\aos\\aos.cjs.js"
     },
@@ -1645,12 +1629,200 @@
       "PackagePath": "staticwebassets\\assets\\vendor\\waypoints\\noframework.waypoints.js"
     },
     {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\css\\profile.css",
+      "PackagePath": "staticwebassets\\css\\profile.css"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\css\\profile.css.map",
+      "PackagePath": "staticwebassets\\css\\profile.css.map"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\css\\restaurant.css",
+      "PackagePath": "staticwebassets\\css\\restaurant.css"
+    },
+    {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\profile\\portfolio\\agriculture.webp",
+      "PackagePath": "staticwebassets\\images\\profile\\portfolio\\agriculture.webp"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\profile\\portfolio\\delicious.jpg",
+      "PackagePath": "staticwebassets\\images\\profile\\portfolio\\delicious.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\profile\\portfolio\\up-construction.jpg",
+      "PackagePath": "staticwebassets\\images\\profile\\portfolio\\up-construction.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\about.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\about.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\apple-touch-icon.png",
+      "PackagePath": "staticwebassets\\images\\restaurant\\apple-touch-icon.png"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\banners\\about.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\banners\\about.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\banners\\banner-1.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\banners\\banner-1.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\banners\\banner-2.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\banners\\banner-2.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\banners\\banner-3.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\banners\\banner-3.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\banners\\banner-4.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\banners\\banner-4.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\events-bg.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\events-bg.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\events-slider\\events-slider-1.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\events-slider\\events-slider-1.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\events-slider\\events-slider-2.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\events-slider\\events-slider-2.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\events-slider\\events-slider-3.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\events-slider\\events-slider-3.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\favicon.ico",
+      "PackagePath": "staticwebassets\\images\\restaurant\\favicon.ico"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\favicon.png",
+      "PackagePath": "staticwebassets\\images\\restaurant\\favicon.png"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\hero-carousel\\hero-carousel-1.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\hero-carousel\\hero-carousel-1.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\hero-carousel\\hero-carousel-2.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\hero-carousel\\hero-carousel-2.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\hero-carousel\\hero-carousel-3.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\hero-carousel\\hero-carousel-3.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\iphone-icon.png",
+      "PackagePath": "staticwebassets\\images\\restaurant\\iphone-icon.png"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\logo.png",
+      "PackagePath": "staticwebassets\\images\\restaurant\\logo.png"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\bread-barrel.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\bread-barrel.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\caesar.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\caesar.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\cake.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\cake.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\greek-salad.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\greek-salad.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\lobster-bisque.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\lobster-bisque.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\lobster-roll.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\lobster-roll.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\mozzarella.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\mozzarella.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\spinach-salad.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\spinach-salad.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\menu\\tuscan-grilled.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\menu\\tuscan-grilled.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\picture.png",
+      "PackagePath": "staticwebassets\\images\\restaurant\\picture.png"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\reservation.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\reservation.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\slideshows\\slideshow-1.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\slideshows\\slideshow-1.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\slideshows\\slideshow-2.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\slideshows\\slideshow-2.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\slideshows\\slideshow-3.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\slideshows\\slideshow-3.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\slideshows\\slideshow-7.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\slideshows\\slideshow-7.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\specials-1.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\specials-1.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\specials-2.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\specials-2.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\specials-3.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\specials-3.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\specials-4.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\specials-4.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\specials-5.jpg",
+      "PackagePath": "staticwebassets\\images\\restaurant\\specials-5.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\js\\WebsiteCaptcha.js",
+      "PackagePath": "staticwebassets\\js\\WebsiteCaptcha.js"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\js\\profile.js",
+      "PackagePath": "staticwebassets\\js\\profile.js"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\js\\restaurant.js",
+      "PackagePath": "staticwebassets\\js\\restaurant.js"
     },
     {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\js\\site.js",

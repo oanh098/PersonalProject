@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalProject.Data;
 
 #nullable disable
@@ -15,34 +16,40 @@ namespace PersonalProject.Migrations
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "9.0.5")
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("PersonalProject.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Genre")
                         .IsRequired()
                         .HasMaxLength(30)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(30)");
 
                     b.Property<decimal?>("Price")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Rating")
                         .IsRequired()
                         .HasMaxLength(5)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(5)");
 
                     b.Property<DateTime>("ReleaseDate")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(60)
-                        .HasColumnType("TEXT");
+                        .HasColumnType("character varying(60)");
 
                     b.HasKey("Id");
 
@@ -53,44 +60,174 @@ namespace PersonalProject.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("DetailsLink")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.Property<string>("Image")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Portfolio");
                 });
 
+            modelBuilder.Entity("PersonalProject.Models.Restaurant.RestaurantEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Address")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CuisineType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RestaurantEntity");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.Restaurant.RestaurantMenu", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Allergens")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Category")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ChefRecommendation")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CookingMethod")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("CuisineType")
+                        .HasColumnType("text");
+
+                    b.Property<string>("CustomerReviews")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("text");
+
+                    b.Property<string>("DietaryRestrictions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ImageUrl")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Ingredients")
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsAvailable")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsSpecial")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NutritionalInfo")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PairingSuggestions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PortionSize")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PreparationTime")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<int?>("RestaurantEntityId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("RestaurantId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("SeasonalAvailability")
+                        .HasColumnType("text");
+
+                    b.Property<string>("ServingSize")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SpecialInstructions")
+                        .HasColumnType("text");
+
+                    b.Property<string>("SpicinessLevel")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RestaurantEntityId");
+
+                    b.ToTable("RestaurantMenu");
+                });
+
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("TEXT");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<int?>("SkillId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -99,11 +236,25 @@ namespace PersonalProject.Migrations
                     b.ToTable("Skill");
                 });
 
+            modelBuilder.Entity("PersonalProject.Models.Restaurant.RestaurantMenu", b =>
+                {
+                    b.HasOne("PersonalProject.Models.Restaurant.RestaurantEntity", "RestaurantEntity")
+                        .WithMany("Menus")
+                        .HasForeignKey("RestaurantEntityId");
+
+                    b.Navigation("RestaurantEntity");
+                });
+
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>
                 {
                     b.HasOne("PersonalProject.Models.Skill", null)
                         .WithMany("Skills")
                         .HasForeignKey("SkillId");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.Restaurant.RestaurantEntity", b =>
+                {
+                    b.Navigation("Menus");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>

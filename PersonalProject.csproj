@@ -18,9 +18,12 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="9.0.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Day\" />
+    <Folder Include="Views\Day\Partials\" />
     <Folder Include="Views\Profile\Portfolios\" />
   </ItemGroup>
 

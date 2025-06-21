@@ -6,8 +6,9 @@
 
     
 
-   <div class="container aos-init aos-animate" data-aos="fade-up" data-aos-delay="100"></div>
-        <h2>Alex Smith</h2>
+   <div class="container aos-init aos-animate" data-aos="fade-up" 
+   data-aos-delay="100">
+        <h2>Trần Thúy Oanh</h2>
         <p>
             I'm
             <span class="typed" data-typed-items="Designer, Developer, Freelancer, Photographer">D</span>
@@ -17,20 +18,3 @@
         </p>
     </div>         
 </section>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var typedElement = document.querySelector('.typed');
-        if (typedElement) {
-            var items = typedElement.getAttribute('data-typed-items');
-            if (items) {
-                new Typed('.typed', {
-                    strings: items.split(',').map(s => s.trim()),
-                    typeSpeed: 100,
-                    backSpeed: 50,
-                    backDelay: 2000,
-                    loop: true
-                });
-            }
-        }
-    });
-</script>

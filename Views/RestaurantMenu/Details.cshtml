@@ -1,0 +1,168 @@
+@model PersonalProject.Models.Restaurant.RestaurantMenu
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>RestaurantMenu</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.RestaurantId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.RestaurantId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UpdatedAt)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UpdatedAt)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ImageUrl)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ImageUrl)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Category)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Category)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsAvailable)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SpecialInstructions)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SpecialInstructions)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ingredients)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ingredients)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NutritionalInfo)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NutritionalInfo)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PreparationTime)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PreparationTime)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ServingSize)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ServingSize)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SpicinessLevel)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SpicinessLevel)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.DietaryRestrictions)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.DietaryRestrictions)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CuisineType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CuisineType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ChefRecommendation)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ChefRecommendation)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Allergens)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Allergens)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CookingMethod)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CookingMethod)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PairingSuggestions)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PairingSuggestions)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CustomerReviews)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CustomerReviews)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.SeasonalAvailability)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.SeasonalAvailability)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PortionSize)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PortionSize)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.IsSpecial)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IsSpecial)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

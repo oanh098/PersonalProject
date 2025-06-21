@@ -72,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfQWJvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Partials/_Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Partials/_Header.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfSGVhZGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -88,12 +92,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfUmVzdW1lLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Partials/_Services.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfU2VydmljZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Partials/_Skills.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfU2tpbGxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Partials/_Stats.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfU3RhdHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Partials/_Testimonials.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxQYXJ0aWFsc1xfVGVzdGltb25pYWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Profile/Portfolio/Create.cshtml]
@@ -136,12 +148,108 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxTa2lsbHNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantEntity/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudEVudGl0eVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantEntity/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudEVudGl0eVxEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantEntity/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudEVudGl0eVxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantEntity/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudEVudGl0eVxFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantEntity/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudEVudGl0eVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantMenu/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudE1lbnVcQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantMenu/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudE1lbnVcRGVsZXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantMenu/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudE1lbnVcRGV0YWlscy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantMenu/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudE1lbnVcRWRpdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/RestaurantMenu/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudE1lbnVcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_About.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfQWJvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_BookATable.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfQm9va0FUYWJsZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Chefs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfQ2hlZnMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Contact.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfQ29udGFjdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Events.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfRXZlbnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Gallery.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfR2FsbGVyeS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Header.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfSGVhZGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Hero.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfSGVyby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Menu.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfTWVudS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Specials.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfU3BlY2lhbHMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_Testimonials.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfVGVzdGltb25pYWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Restaurant/Partials/_WhyUs.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmVzdGF1cmFudFxQYXJ0aWFsc1xfV2h5VXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Shared/_ProfileLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9maWxlTGF5b3V0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Shared/_RestaurantLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9SZXN0YXVyYW50TGF5b3V0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/Shared/_ValidationScriptsPartial.cshtml]

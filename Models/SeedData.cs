@@ -19,7 +19,7 @@ public class SeedData
                 new Movie
                 {
                     Title = "When Harry Met Sally",
-                    ReleaseDate = DateTime.Parse("1989-2-13"),
+                    ReleaseDate = DateTime.SpecifyKind(new DateTime(1959, 7, 16), DateTimeKind.Utc),
                     Genre = "Comedy",
                     Price = 7.99M,
                     Rating = "PG-13"
@@ -27,7 +27,7 @@ public class SeedData
                 new Movie
                 {
                     Title = "Ghostbusters",
-                    ReleaseDate = DateTime.Parse("1984-7-31"),
+                    ReleaseDate = DateTime.SpecifyKind(new DateTime(1984, 7, 31), DateTimeKind.Utc),
                     Genre = "Comedy",
                     Price = 8.99M,
                     Rating = "PG-13"    
@@ -35,7 +35,7 @@ public class SeedData
                 new Movie
                 {
                     Title = "Rio Bravo",
-                    ReleaseDate = DateTime.Parse("1959-7-16"),
+                    ReleaseDate = DateTime.SpecifyKind(new DateTime(1959, 7, 16), DateTimeKind.Utc),
                     Genre = "Western",
                     Price = 3.99M,
                     Rating = "PG-13"            
@@ -43,7 +43,7 @@ public class SeedData
                 new Movie
                 {
                     Title = "Rio Bravo",
-                    ReleaseDate = DateTime.Parse("1959-7-16"),
+                    ReleaseDate = DateTime.SpecifyKind(new DateTime(1959, 7, 16), DateTimeKind.Utc),                
                     Genre = "Western",
                     Price = 3.99M,
                     Rating = "PG-13"            
@@ -51,7 +51,7 @@ public class SeedData
                 new Movie
                 {
                     Title = "Rio Bravo",
-                    ReleaseDate = DateTime.Parse("1959-7-16"),
+                    ReleaseDate = DateTime.SpecifyKind(new DateTime(1959, 7, 16), DateTimeKind.Utc),
                     Genre = "Western",
                     Price = 3.99M,
                     Rating = "PG-13"            

@@ -304,3 +304,7 @@ D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug
 D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug\net8.0\PersonalProject.pdb
 D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug\net8.0\PersonalProject.genruntimeconfig.cache
 D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug\net8.0\ref\PersonalProject.dll
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Views\Visible\assets\vendor\bootstrap-icons\bootstrap-icons.json
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\appsettings.Production.json
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Npgsql.dll
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

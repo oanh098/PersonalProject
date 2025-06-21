@@ -5,12 +5,15 @@ using PersonalProject.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<PersonalProjectContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("PersonalProjectContext") ?? throw new InvalidOperationException("Connection string 'PersonalProjectContext' not found.")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("PersonalProjectContext")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+app.MapGet("/HW", () => "Hello World!");
+
 
 
 using (var scope = app.Services.CreateScope())
