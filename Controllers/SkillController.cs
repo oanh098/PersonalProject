@@ -31,6 +31,10 @@ namespace PersonalProject.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Ensure UTC for DateTime properties
+                skill.CreatedAt = DateTime.SpecifyKind(skill.CreatedAt, DateTimeKind.Utc);
+                skill.UpdatedAt = DateTime.SpecifyKind(skill.UpdatedAt, DateTimeKind.Utc);
+
                 _context.Skill.Add(skill);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
@@ -52,6 +56,10 @@ namespace PersonalProject.Controllers
             if (id != skill.Id) return NotFound();
             if (ModelState.IsValid)
             {
+                // Ensure UTC for DateTime properties
+                skill.CreatedAt = DateTime.SpecifyKind(skill.CreatedAt, DateTimeKind.Utc);
+                skill.UpdatedAt = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
+
                 _context.Update(skill);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));

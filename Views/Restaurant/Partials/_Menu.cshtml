@@ -20,7 +20,10 @@
 
               @foreach (var category in Model.RestaurantMenu.Select(m => m.Category).Distinct())
               {
-                <li data-filter=".filter-@category.Replace(" ", "").ToLower()">@category</li>
+                 if (!string.IsNullOrEmpty(category))
+                {
+                  <li data-filter=".filter-@category.Replace(" ", "").ToLower()">@category</li>
+                }
               }
 
               @* <li data-filter="*" class="filter-active">All</li>
@@ -35,15 +38,26 @@
 
         @foreach (var item in Model.RestaurantMenu)
           {
-            <div class="col-lg-6 menu-item isotope-item filter-@(item.Category.Replace(" ", "").ToLower())">
-              <img src="assets/images/restaurant/menu/@item.ImageUrl" class="menu-img" alt="">
-              <div class="menu-content">
-                <a href="#">@item.Name</a><span>@item.Price.ToString("C")</span>
-              </div>
-              <div class="menu-ingredients">
-                @item.Ingredients
-              </div>
-            </div><!-- Menu Item -->
+            @if (item != null)
+            {
+              <div class="col-lg-6 menu-item isotope-item filter-@(item.Category?.Replace(" ", "").ToLower() ?? "no-category")">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                  {
+                    <img src="@item.ImageUrl" class="menu-img" alt="">
+                  }
+                  <div class="menu-content">
+                    <a href="#">@item.Name</a><span>@item.Price.ToString("C")</span>
+                  </div>
+                  @if (!string.IsNullOrEmpty(item.Ingredients))
+                  {
+                    <div class="menu-ingredients">
+                      @item.Ingredients
+                    </div>
+                  }
+                </div><!-- Menu Item -->
+            }
+            
+            
           }        
 
           @* <div class="col-lg-6 menu-item isotope-item filter-starters">

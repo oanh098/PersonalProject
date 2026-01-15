@@ -1,2 +1,104 @@
     // "PersonalProjectContext": "Data Source=PersonalProjectContext-6cc7e25a-1406-4994-8344-947934deaf13.db"
-connecstion string to sqlite development database
+connection string to sqlite development database
+
+// Authentication connection string for Razor Pages project SQL Server LocalDB
+"RazorPagesPersonalProjectAuthConnection": "Server=(localdb)\\mssqllocaldb;Database=PersonalProject;Trusted_Connection=True;MultipleActiveResultSets=true",
+- Authentication
+ + cookie authentication
+ + JWT authentication
+ + Use ASP.NET Core ships with a built-in authentication provider: ASP.NET Core Identity
+ +  Email Service Provider (ESP): SendGrid used to have a "forever free" plan, but they have recently discontinued it.
+
+    As of May 27, 2025, SendGrid officially retired its Free Email API and Free Marketing Campaigns plans. 
+    They offered a 60-day grace period for existing free users.
+
+
+
+  + Send grid: WFP2YXU992FZ9DTTHUAV6BYP
+  -->If you lose your phone, or don’t have access to your verification device, this code is your failsafe to access your account.
+
+Recovery code: WFP2YXU992FZ9DTTHUAV6BYP
+
+  +  PostgreSQL database hosted on Render, free version, will deleted after a while.
+_____________________________
+Sep 25,
+- Restaurant menu co photo, duoc save tai Cloudinary authen by thuyoanh21790@gmail.com
+- Want: Distributed SQL Server Cache
+
+_____________________________
+Oct 14,
+how to setting new database created in render
+- copy hostname like: dpg-d3l11n49c44c738vrpng-a.oregon-postgres.render.com
+- command: dotnet ef database update --context RazorPagesPersonalProjectAuth to install database authentication
+- dotnet run
+_____________________________
+Oct 18
+setting redis thanh cong, phai cc username, password.. redis distributed caches: making things fast
+_____________________________
+Oct 20,
+An e-commerce shopping cart is the best example of this layered approach:
+
+Client receives a Cookie: The cookie holds a secure Cart ID (e.g., cart_12345).
+
+Server uses the Cart ID: When a user adds an item, the application reads the cart_12345 ID from the cookie.
+
+Server queries Redis: It uses that ID to quickly look up the full cart object (containing all items, quantities, and prices) stored in the Distributed Cache (Redis).
+
+Security: If a hacker tries to modify the cookie ID, the Distributed Cache either won't find a matching cart or the session ID cookie will be rejected because its integrity check fails.
+===> Code ====
+That's a fantastic summary of the layered security and state management approach for an e-commerce shopping cart! It clearly articulates why you need both a client-side component (the cookie) and a robust server-side store (Redis).
+
+Here is a slightly more detailed explanation structured for clarity, focusing on the security and scalability benefits:
+
+How E-commerce Shopping Carts Leverage Layered State Management
+A modern, scalable e-commerce application combines lightweight client-side identifiers with heavy-duty server-side storage (like Redis) to achieve both reliability and security.
+
+Getty Images
+
+1. Client Receives the Identifier (The Cookie)
+The Cookie Holds a Secure Identifier: The cookie placed on the user's browser does not contain the product data itself (e.g., product names or prices). Instead, it holds a unique, random, and cryptographically signed value, such as a Cart ID (e.g., cart_12345) or a Session ID.
+
+Security: This ID is digitally signed and often encrypted, ensuring the client cannot read or tamper with it without invalidating the signature.
+
+2. Server Uses the Identifier (The Lookup)
+Reading the ID: When a user interacts with the cart (e.g., clicks "Add to Cart" or "View Cart"), the server reads the secure cart_12345 identifier from the incoming request cookie.
+
+Decoupling: This identifier serves as the only link between the client's browser and the actual data stored on the server side.
+
+3. Server Queries Redis (The Scalable Store)
+Data Retrieval: The application uses that cart_12345 ID as the key to quickly query the Distributed Cache (Redis).
+
+Full Cart Object: Redis returns the full, complex, server-trusted object, which contains all necessary details: the list of items, quantities, custom pricing, shipping estimates, and current inventory checks.
+
+Scalability Benefit: Because Redis is shared across all web servers (a distributed system), any server handling the user's request can instantly retrieve the cart, making the application highly scalable and resilient to individual server failures.
+
+4. Security and Integrity Check (The Validation)
+This is where the layered approach is vital for security:
+
+Integrity Check Fails: If a hacker attempts to change the cookie ID from cart_12345 to cart_99999 (hoping to hijack another user's cart), the application first validates the cookie's digital signature. If the signature is invalid (because the value was changed), the cookie is immediately rejected.
+
+Cache Miss: If the signature is somehow bypassed, the server will query Redis with the fabricated ID (cart_99999). If that ID does not exist in the cache (because it was a random guess), the server simply treats the request as a new session or an error, protecting the target user's data.
+
+This layered system ensures the sensitive business logic and data remain safely on the server, leveraging the speed of Redis while only exposing an untrustworthy, yet validated, pointer (the ID) to the client.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PersonalProject.Data;
 using PersonalProject.Models.Restaurant;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 
 namespace PersonalProject.Controllers
 {
     public class RestaurantMenuController : Controller
     {
         private readonly PersonalProjectContext _context;
+        private readonly Cloudinary _cloudinary;
 
-        public RestaurantMenuController(PersonalProjectContext context)
+        public RestaurantMenuController(PersonalProjectContext context, Cloudinary cloudinary)
         {
             _context = context;
+            _cloudinary = cloudinary;
         }
 
         // GET: RestaurantMenu
@@ -109,18 +113,16 @@ namespace PersonalProject.Controllers
             {
                 if(ImageFile != null && ImageFile.Length > 0)
                 {
-                    var fileName = Path.GetFileName(ImageFile.FileName);
-                    var folderPath = Path.Combine("wwwroot", "images", "restaurant", "menu");
-                    Directory.CreateDirectory(folderPath); // Ensure the folder exists
-                    var filePath = Path.Combine(folderPath, fileName);
-
-                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    using (var stream = ImageFile.OpenReadStream())
                     {
-                        await ImageFile.CopyToAsync(stream);
+                        var uploadParams = new ImageUploadParams()
+                        {
+                            File = new FileDescription(ImageFile.FileName, stream),
+                            Folder = "RestaurantMenu" // <-- folder specified here
+                        };
+                        var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                        restaurantMenu.ImageUrl = uploadResult.SecureUrl.ToString();
                     }
-
-                    // Save only the file name to the database
-                    restaurantMenu.ImageUrl = fileName;
                 }
 
                 
@@ -171,17 +173,16 @@ namespace PersonalProject.Controllers
                 {
                     if (ImageFile != null && ImageFile.Length > 0)
                     {
-                        var fileName = Path.GetFileName(ImageFile.FileName);
-                        var folderPath = Path.Combine("wwwroot", "images", "restaurant", "menu");
-                        Directory.CreateDirectory(folderPath);
-                        var filePath = Path.Combine(folderPath, fileName);
-
-                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        using (var stream = ImageFile.OpenReadStream())
                         {
-                            await ImageFile.CopyToAsync(stream);
+                            var uploadParams = new ImageUploadParams()
+                            {
+                                File = new FileDescription(ImageFile.FileName, stream),
+                                Folder = "RestaurantMenu"
+                            };
+                            var uploadResult = await _cloudinary.UploadAsync(uploadParams);
+                            restaurantMenu.ImageUrl = uploadResult.SecureUrl.ToString();
                         }
-
-                        restaurantMenu.ImageUrl = fileName;
                     }
 
                     // Ensure DateTimeKind.Utc for PostgreSQL compatibility

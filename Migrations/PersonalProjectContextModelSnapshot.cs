@@ -22,6 +22,22 @@ namespace PersonalProject.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("PersonalProject.Models.GpBootstrap.GpBootstrap", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Title")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("GpBootstrap");
+                });
+
             modelBuilder.Entity("PersonalProject.Models.Movie", b =>
                 {
                     b.Property<int>("Id")
@@ -56,7 +72,7 @@ namespace PersonalProject.Migrations
                     b.ToTable("Movie");
                 });
 
-            modelBuilder.Entity("PersonalProject.Models.Portfolio", b =>
+            modelBuilder.Entity("PersonalProject.Models.PortfolioItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -75,7 +91,7 @@ namespace PersonalProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Portfolio");
+                    b.ToTable("PortfolioItem");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.Restaurant.RestaurantEntity", b =>

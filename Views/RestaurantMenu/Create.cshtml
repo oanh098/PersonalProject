@@ -50,7 +50,7 @@
                 <input type="file" name="ImageFile" class="form-control" />
                 <span asp-validation-for="ImageUrl" class="text-danger"></span>
             </div>
-
+            <img src="@Model.ImageUrl" alt="Menu Image" />
             <div class="form-group">
                 <label asp-for="Category" class="control-label"></label>
                 <input asp-for="Category" class="form-control" />

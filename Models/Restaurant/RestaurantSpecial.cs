@@ -12,7 +12,7 @@ public class RestaurantSpecial
 
     public string? ImageUrl { get; set; }
 
-    public string SpecialType { get; set; } // e.g., "Daily Special", "Seasonal Special", "Holiday Special"
+    public string? SpecialType { get; set; } // e.g., "Daily Special", "Seasonal Special", "Holiday Special"
 
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }

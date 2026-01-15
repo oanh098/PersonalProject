@@ -50,11 +50,10 @@
                 @if (!string.IsNullOrEmpty(Model.ImageUrl))
                 {
                     <div class="">
-                        <img src="~/images/restaurant/menu/@Model.ImageUrl" alt="Current Image" 
+                        <img src="@Model.ImageUrl" alt="Current Image" 
                         class="img-thumbnail" style="max-height: 150px;" />
                     </div>
                 }
-                <input type="hidden" asp-for="ImageUrl" />
 
                 @* <input asp-for="ImageUrl" type="file" name="ImageFile" class="form-control" /> *@
             </div>
@@ -157,8 +156,9 @@
     </div>
     <div class="col-md-4">
             <label asp-for="ImageUrl" class="control-label"></label>
-            <img src="~/images/restaurant/menu/@Model.ImageUrl" 
+            <img src="@Model.ImageUrl" 
             alt="Menu Image" class="img-fluid" />
+
             
     </div>
 </div>

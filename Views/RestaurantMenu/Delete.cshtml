@@ -162,7 +162,7 @@
             @Html.DisplayFor(model => model.IsSpecial)
         </dd>
     </dl>
-    
+    <img src="@Model.ImageUrl" alt="Menu Image" />
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |

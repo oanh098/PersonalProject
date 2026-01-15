@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using PersonalProject.Models;
 using PersonalProject.Models.Restaurant;
+using PersonalProject.Models.GpBootstrap;
 
 namespace PersonalProject.Data
 {
@@ -18,8 +19,9 @@ namespace PersonalProject.Data
         public DbSet<PersonalProject.Models.Movie> Movie { get; set; } = default!;
         public DbSet<PersonalProject.Models.Skill> Skill { get; set; } = default!;
         
-        public DbSet<PersonalProject.Models.Portfolio> Portfolio { get; set; } = default!;
+        public DbSet<PersonalProject.Models.PortfolioItem> PortfolioItem { get; set; } = default!;
         public DbSet<PersonalProject.Models.Restaurant.RestaurantMenu> RestaurantMenu { get; set; } = default!;
         public DbSet<PersonalProject.Models.Restaurant.RestaurantEntity> RestaurantEntity { get; set; } = default!;
+        public DbSet<PersonalProject.Models.GpBootstrap.GpBootstrap> GpBootstrap { get; set; } = default!;
     }
 }

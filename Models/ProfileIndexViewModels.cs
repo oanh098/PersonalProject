@@ -4,7 +4,7 @@ namespace PersonalProject.Models;
 
 public class ProfileIndexViewModels
 {
-    public List<Skill> Skill { get; set; }
-    public List<Movie> Movie { get; set; } 
-    public List<Portfolio> Portfolio { get; set; }
+    public List<Skill> Skill { get; set; } = new List<Skill>();
+    public List<Movie> Movie { get; set; } = new List<Movie>();
+    public List<PortfolioItem> Portfolio { get; set; } = new List<PortfolioItem>();
 }

@@ -19,7 +19,7 @@ public class ProfileController : Controller
     {
         var skills = _context.Skill.ToList();
         var movies = _context.Movie.ToList();
-        var portfolio = _context.Portfolio.ToList();
+        var portfolio = _context.PortfolioItem.ToList();
         var viewModels = new ProfileIndexViewModels
         {
             Skill = skills,

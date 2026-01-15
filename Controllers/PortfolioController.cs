@@ -25,7 +25,7 @@ namespace PersonalProject.Controllers
         public async Task<IActionResult> Index()
         {
             return View("~/Views/Profile/Portfolio/Index.cshtml",
-                await _context.Portfolio.ToListAsync());
+                await _context.PortfolioItem.ToListAsync());
         }
 
         // GET: Portfolio/Details/5
@@ -34,7 +34,7 @@ namespace PersonalProject.Controllers
             if (id == null)
                 return NotFound();
 
-            var portfolio = await _context.Portfolio.FirstOrDefaultAsync(m => m.Id == id);
+            var portfolio = await _context.PortfolioItem.FirstOrDefaultAsync(m => m.Id == id);
             if (portfolio == null)
                 return NotFound();
 
@@ -52,7 +52,7 @@ namespace PersonalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Description,DetailsLink")] Portfolio portfolio, IFormFile ImageFile)
+        public async Task<IActionResult> Create([Bind("Id,Description,DetailsLink")] PortfolioItem portfolio, IFormFile ImageFile)
         {
             if (ModelState.IsValid)
             {
@@ -85,7 +85,7 @@ namespace PersonalProject.Controllers
             if (id == null)
                 return NotFound();
 
-            var portfolio = await _context.Portfolio.FindAsync(id);
+            var portfolio = await _context.PortfolioItem.FindAsync(id);
             if (portfolio == null)
                 return NotFound();
 
@@ -97,7 +97,7 @@ namespace PersonalProject.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Image,Description,DetailsLink")] Portfolio portfolio)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Image,Description,DetailsLink")] PortfolioItem portfolio)
         {
             if (id != portfolio.Id)
                 return NotFound();
@@ -127,7 +127,7 @@ namespace PersonalProject.Controllers
             if (id == null)
                 return NotFound();
 
-            var portfolio = await _context.Portfolio.FirstOrDefaultAsync(m => m.Id == id);
+            var portfolio = await _context.PortfolioItem.FirstOrDefaultAsync(m => m.Id == id);
             if (portfolio == null)
                 return NotFound();
 
@@ -139,10 +139,10 @@ namespace PersonalProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var portfolio = await _context.Portfolio.FindAsync(id);
+            var portfolio = await _context.PortfolioItem.FindAsync(id);
             if (portfolio != null)
             {
-                _context.Portfolio.Remove(portfolio);
+                _context.PortfolioItem.Remove(portfolio);
                 await _context.SaveChangesAsync();
             }
             return RedirectToAction(nameof(Index));
@@ -150,7 +150,7 @@ namespace PersonalProject.Controllers
 
         private bool PortfolioExists(int id)
         {
-            return _context.Portfolio.Any(e => e.Id == id);
+            return _context.PortfolioItem.Any(e => e.Id == id);
         }
     }
 }

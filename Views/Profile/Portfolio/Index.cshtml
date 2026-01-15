@@ -1,4 +1,4 @@
-@model IEnumerable<PersonalProject.Models.Portfolio>
+@model IEnumerable<PersonalProject.Models.PortfolioItem>
 
 @{
     ViewData["Title"] = "Portfolio";
@@ -13,9 +13,9 @@
 <table class="table">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Image)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().Description)</th>
-            <th>@Html.DisplayNameFor(model => model.FirstOrDefault().DetailsLink)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Image)</th>
+            <th>@Html.DisplayNameFor(model => model.First().Description)</th>
+            <th>@Html.DisplayNameFor(model => model.First().DetailsLink)</th>
             <th></th>
         </tr>
     </thead>

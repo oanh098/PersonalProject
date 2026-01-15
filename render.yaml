@@ -1,8 +1,4 @@
 
-databases:
-  - name: PersonalProject-db2 # This is the internal Render name for your PostgreSQL database
-    databaseName: PersonalProject-db2 # The actual database name within PostgreSQL
-    user: personalproject_db2_user
 services:
   - type: web
     name: dotnet-mvc-app
@@ -10,39 +6,4 @@ services:
     repo: https://github.com/oanh098/PersonalProject.git
     rootDir: PersonalProject
     plan: starter
-    buildCommand: dotnet publish -c Release -o output
-    startCommand: dotnet output/PersonalProject.dll
-    envVars:
-      - key: ConnectionStrings__DefaultConnection
-        fromService:
-          name: pgbouncer
-          property: connectionString
-        
-# pgBouncer Connection Pooler
-  - type: pserv
-    name: pgbouncer
-    runtime: docker
-    plan: standard
-    repo: https://github.com/render-oss/docker-pgbouncer
-    envVars:
-      - key: DATABASE_URL
-        fromDatabase:
-          name: PersonalProject-db2
-          property: connectionString
-      - key: POOL_MODE
-        value: transaction
-      - key: SERVER_RESET_QUERY
-        value: DISCARD ALL
-      - key: MAX_CLIENT_CONN
-        value: 500
-      - key: DEFAULT_POOL_SIZE
-        value: 50
-
-
-
-
-
-
-
-
 
