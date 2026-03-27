@@ -1,0 +1,299 @@
+@using PersonalProject.Models.ShoppingCartProcess
+@Html.AntiForgeryToken()
+@model IEnumerable<CartItem>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<section>
+    <partial name="_MiniCart" />
+    <a asp-action="Create">Create New</a>
+    
+</section>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+            <!--"Look at the model I defined at the top of this page 
+            and find the metadata for ProductName."-->
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProductName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <a asp-action="AddToCart" asp-route-id="@item.Id">Add to Cart</a>
+        </tr>
+}
+    </tbody>
+</table>
+
+
+
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">Available Products</h2>
+            <div class="row">
+                @foreach (var product in Model) {
+                    <div class="col-sm-6">
+                        <div class="card mb-3 shadow-sm">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">@product.ProductName</h5>
+                                <p class="text-success fw-bold">@product.Price.ToString("C")</p>
+                                <div class="d-flex align-items-center justify-content-center mb-2">
+                                    <input type="number" 
+                                        class="form-control form-control-sm item-quantity" 
+                                        value="1" min="1" style="width: 60px;"> 
+                                    <button class="btn btn-primary add-to-cart" 
+                                        data-id="@product.Id" 
+                                        data-name="@product.ProductName" 
+                                        data-price="@product.Price">
+                                        <i class="bi bi-cart-plus"></i> Add to Cart
+                                    </button>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="sticky-top" style="top: 20px;">
+                <div class="p-3 border rounded bg-light">
+                    <h4>Your Basket</h4>
+                    <ul id="cart-list" class="list-group list-group-flush mb-3">
+                        </ul>
+                    <div class="d-flex justify-content-between">
+                        <strong>Total:</strong>
+                        <span id="cart-total" class="text-primary fw-bold">$0.00</span>
+                    </div>
+                    <button id="btnCheckout" onclick="handleCheckout()" class="btn btn-warning w-100 mt-3">Checkout Now</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="cartToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+        <div class="toast-body">
+            <i class="bi bi-check-circle-fill me-2 text-white"></i> 
+            <span id="toastMessage"></span>
+        </div>
+
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+@if (Context.Request.Host.Host == "localhost") {
+    <div class="alert alert-warning mt-5 small">
+        <strong>Debug Monitor:</strong> User: @ViewBag.DebugUser | Merchant: @ViewBag.DebugMerchant
+    </div>
+}
+
+@section Scripts {
+    <script>
+        async function handleCheckout() {
+            const btn = document.getElementById('btnCheckout');
+            btn.disabled = true;
+            try {
+                const checkoutData = {
+                    FullName: "John Doe",
+                    Email: "johndoe@example.com",
+                    ShippingAddress: "123 Main St, Anytown, USA",
+                    PaymentMethod: "COD",
+                    PhoneNumber: "123-456-7890"
+                    };
+
+
+                const response = await fetch('/ShoppingCart/Checkout', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': getCsrfToken()
+                    },
+                    body: JSON.stringify(checkoutData)
+                });
+                if (response.ok) {
+                    const result = await response.json();
+                    alert(result.message);
+                    // Optionally redirect to confirmation page
+                    window.location.href = result.redirectUrl;
+                } else {
+                    alert('Checkout failed. Please try again.');
+                }
+            } catch (error) {
+                console.error('Error during checkout:', error);
+                }
+        }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                // Fetch the current cart state from the server
+                const response = await fetch('/ShoppingCart/GetCart'); 
+                if (response.ok) {
+                    const currentCart = await response.json();
+                    renderCart(currentCart);
+                }
+            } catch (error) {
+                console.error('Error loading initial cart:', error);
+            }
+        });
+
+        function getCsrfToken() {
+            return document.querySelector('input[name="__RequestVerificationToken"]').value;
+        }
+
+        // ✅ Fix: Use querySelectorAll to get all buttons
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', async (e) => {
+
+                const quantityInput = button.parentElement.querySelector('.item-quantity');
+                const qty = parseInt(quantityInput.value);
+
+                if (isNaN(qty) || qty <= 0) {
+                    alert("Please enter a valid quantity of juice.");
+                    return; // Stops the function immediately
+                }
+               
+                const requestBody = {
+                    ProductId: button.getAttribute('data-id'),
+                    Quantity: qty
+                };
+                button.disabled = true; // Disable button to prevent multiple clicks
+                button.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Adding...';
+                
+
+                try {
+                    
+                    const response = await fetch('/ShoppingCart/AddPost', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': getCsrfToken() // Include CSRF token in header
+                        },
+                        body: JSON.stringify(requestBody)
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        renderCart(result.cart);
+                       
+
+                        document.getElementById('toastMessage').innerText = result.message;
+
+                        // Show success toast
+                        const toastEl = document.getElementById('cartToast');
+                        const toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                        quantityInput.value = 1;
+
+                    } else {
+                        alert('Failed to add product to cart.');
+                    }
+                } catch (error) {
+                    console.error('Error adding product to cart:', error);
+                }
+                finally {
+                    button.disabled = false; // Re-enable button
+                    button.innerHTML = '<i class="bi bi-cart-plus"></i> Add to Cart'; // Reset button text
+                }
+            }); // End of Event Listener
+        }); // End of forEach loop
+
+        document.getElementById('cart-list').addEventListener('click', async (e) => {
+            if (e.target.classList.contains('remove-item')) {
+                const productId = e.target.getAttribute('data-id');
+                try {
+                    const response = await fetch(`/ShoppingCart/RemovePost?productId=${productId}`, {
+                        method: 'POST',
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        renderCart(result.cart);
+
+                        document.getElementById('toastMessage').innerText = result.message;
+
+                        // Show remove toast
+                        const toastEl = document.getElementById('cartToast');
+                        const toast = new bootstrap.Toast(toastEl);
+                        toast.show();
+                    } else {
+                        alert('Failed to remove product from cart.');
+                    }
+                } catch (error) {
+                    console.error('Error removing product from cart:', error);
+                }
+            }
+        });
+
+        function renderCart(cart) {
+            const cartList = document.getElementById('cart-list');
+            const cartTotal = document.getElementById('cart-total');
+
+            // 1. Check if the cart is empty
+            if (!cart.items || cart.items.length === 0) {
+                cartList.innerHTML = `
+                    <li class="list-group-item text-center text-muted py-4">
+                        <i class="bi bi-cart-x d-block mb-2" style="font-size: 2rem;"></i>
+                        Your basket is empty.
+                    </li>`;
+                cartTotal.innerText = '$0.00';
+                return;
+            }
+
+            // Clear existing cart items
+            cartList.innerHTML = cart.items.map(item => `
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    ${item.productName} 
+                    <span class="badge bg-primary rounded-pill">x${item.quantity}</span>
+                    <a href="javascript:void(0)" 
+                    class="text-danger remove-item" 
+                    data-id="${item.productId}" 
+                    style="text-decoration: none;">
+                    &times;
+                    </a>
+                </li>
+                `).join('');
+
+                cartTotal.innerText = '$' + cart.totalPrice.toFixed(2);
+        }
+    </script>
+}

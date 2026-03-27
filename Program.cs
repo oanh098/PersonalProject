@@ -11,6 +11,10 @@ using Npgsql;
 using StackExchange.Redis;
 using PersonalProject.Services;
 using PersonalProject.Extensions;
+using Microsoft.Extensions.Caching.Distributed;
+using Humanizer;
+using Microsoft.OpenApi.Models; 
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,7 +28,7 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false); // Importan
 // Load user secrets
 // only use secrets in development mode
 if (builder.Environment.IsDevelopment())
-{
+{    
     builder.Configuration.AddUserSecrets<Program>();
 }
 
@@ -38,8 +42,8 @@ var redisConnection = builder.Configuration.GetSection("RedisCache")["Configurat
 
 // chỗ này dùng ConfigureDatabase viết trong static file Extensions/ServiceExtensions.cs
 // cách này giúp code gọn hơn và tái sử dụng được
-
 builder.Services.ConfigureDatabase(builder.Configuration);
+
 // Configure Identity options
 // Login allowed immediately after registration
 builder.Services.AddDefaultIdentity<RazorPagesPersonalProjectUser>()
@@ -75,10 +79,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("admin_greetings", policy => policy.RequireAuthenticatedUser());
 
 // Configure distributed caching with Redis
-
 // 2. Parse the string into ConfigurationOptions
-
-
 if (!string.IsNullOrEmpty(redisConnection))
 {
     var opt = ConfigurationOptions.Parse(redisConnection, true);
@@ -126,12 +127,47 @@ else
 // 1. Register the HttpContextAccessor for accessing HttpContext in services
 builder.Services.AddHttpContextAccessor();
 // 2. Register the CartService
-builder.Services.AddScoped<CartService>();
+// builder.Services.AddScoped<CartService>();
 
 // MVC & Razor Pages
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+// Swagger is registered
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "Payment Aggregator API", Version = "v1" });
+    // This part adds the Authorization button to Swagger UI
+    c.AddSecurityDefinition("ApiKey", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+    {
+        Description = "Enter your merchant API key (X-Merchant-Key)",
+        Name = "X-Merchant-Key",
+        In = Microsoft.OpenApi.Models.ParameterLocation.Header,
+        Type = Microsoft.OpenApi.Models.SecuritySchemeType.ApiKey
+    });
+    c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement{
+        {
+            new Microsoft.OpenApi.Models.OpenApiSecurityScheme
+            {
+                Reference = new Microsoft.OpenApi.Models.OpenApiReference
+                {
+                    Type = Microsoft.OpenApi.Models.ReferenceType.SecurityScheme,
+                    Id = "ApiKey"
+                }
+            },
+            new string[] {}
+        }
+    });
+});
+
+// IServices, CartService, and other dependencies are registered here as needed.
+builder.Services.AddScoped<ICartService, CartService>();
+//"Whenever a Controller asks for an IOrderService (the Menu), 
+//give them an instance of OrderService (the Kitchen)."
+builder.Services.AddScoped<IOrderService, OrderService>(); 
+
 
 // Print the environment and connection string to the console
 // this will print the environment and connection string to the console 
@@ -152,6 +188,16 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate(); // <-- Add this line to apply migrations
     SeedData.Initialize(services);
 }
+// Add this so Swagger works in your local environment
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        // Explicitly set the endpoint to avoid routing confusion
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Payment Aggregator API V1");
+    });
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -166,11 +212,25 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication(); // <-- Add this line before UseAuthorization
-app.UseAuthorization();
+
 
 // Use Session Middleware
 app.UseSession(); // <-- Add this line to enable session handling
+app.UseAuthorization();
 
+//
+app.Use(async (context, next) =>
+{
+    // 1. Logic BEFORE next(): Prepare the data
+    string merchantId = context.Items["MerchantId"]?.ToString() ?? "Not_Found";
+
+    // 2. Set headers BEFORE next(): This prevents the "Read-Only" crash
+    context.Response.Headers["X-Debug-MerchantId"] = merchantId;
+    context.Response.Headers.Append("X-Debug-Trace", "Middleware-Active");
+
+    // 3. Now let the request continue to the Controller/View
+    await next();
+});
 //Routes
 app.MapControllerRoute(
     name: "default",
@@ -199,7 +259,29 @@ app.MapGet("/debug-claims", (System.Security.Claims.ClaimsPrincipal user) =>
     return user.Claims.Select(c => new { c.Type, c.Value });
 }).RequireAuthorization();
 
+app.MapGet("/test-redis", async (IDistributedCache cache, HttpContext context) =>
+{
+    //1. Test Distributed Cache (Working)
+    var testKey = "test_time";
+    var currentTime = DateTime.Now.ToString();
 
+    // 1. Write to Redis
+    await cache.SetStringAsync(testKey, currentTime);
+
+    // 2. Read from Redis
+    var cachedValue = await cache.GetStringAsync(testKey);
+
+    // 3. Test Session (This will trigger the cookie)
+    context.Session.SetString("SessionTest", "Session Is Active");
+
+    return Results.Ok(new { 
+        Success = cachedValue == currentTime, 
+        SessionValue = context.Session.GetString("SessionTest"),
+        Value = cachedValue 
+    });
+});
+
+app.MapGet("/Order/Confirmation", () => "Order Confirmation");
 
 
 

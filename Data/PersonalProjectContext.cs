@@ -23,5 +23,11 @@ namespace PersonalProject.Data
         public DbSet<PersonalProject.Models.Restaurant.RestaurantMenu> RestaurantMenu { get; set; } = default!;
         public DbSet<PersonalProject.Models.Restaurant.RestaurantEntity> RestaurantEntity { get; set; } = default!;
         public DbSet<PersonalProject.Models.GpBootstrap.GpBootstrap> GpBootstrap { get; set; } = default!;
+
+        public DbSet<PersonalProject.Models.PaymentAggregator.Transaction> Transaction { get; set; } = default!;
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.CartItem> CartItem { get; set; } = default!;
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.Order> Order { get; set; } = default!;
+
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.OrderDetail> OrderDetails { get; set; } = default!;
     }
 }

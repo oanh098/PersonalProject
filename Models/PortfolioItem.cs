@@ -2,7 +2,7 @@ using System;
 
 namespace PersonalProject.Models;
 
-public class PortfolioItem
+public class PortfolioItem  
 {
     public int Id { get; set; }
     public string? Image { get; set; }

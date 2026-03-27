@@ -29,11 +29,27 @@ _____________________________
 Oct 14,
 how to setting new database created in render
 - copy hostname like: dpg-d3l11n49c44c738vrpng-a.oregon-postgres.render.com
-- command: dotnet ef database update --context RazorPagesPersonalProjectAuth to install database authentication
+- command to install database authentication: dotnet ef database update --context RazorPagesPersonalProjectAuth 
 - dotnet run
 _____________________________
 Oct 18
 setting redis thanh cong, phai cc username, password.. redis distributed caches: making things fast
+test Redis code: app.MapGet("/test-redis", async (IDistributedCache cache, HttpContext context) =>...
+
+1. Cookies vs. Redis
+Cookies: These are small pieces of data stored directly on your computer by the browser. In your screenshot, MyApp.Session is a cookie that acts like a "claim check" ticket.
+
+Redis: This is the actual "warehouse" (on Render's servers) where the data is stored. Your ProfileIndexData string is stored inside Redis, not in the browser.
+
+2. How the Connection Works
+When you visit the /Profile page:
+
+Your browser sends the MyApp.Session cookie to your .NET app.
+
+Your app sees that cookie, connects to Render Redis, and looks for keys like PersonalProject_ProfileIndexData.
+
+The browser never sees the actual "ProfileIndexData" string; it only sees the encrypted session ID.
+
 _____________________________
 Oct 20,
 An e-commerce shopping cart is the best example of this layered approach:
@@ -53,7 +69,6 @@ Here is a slightly more detailed explanation structured for clarity, focusing on
 How E-commerce Shopping Carts Leverage Layered State Management
 A modern, scalable e-commerce application combines lightweight client-side identifiers with heavy-duty server-side storage (like Redis) to achieve both reliability and security.
 
-Getty Images
 
 1. Client Receives the Identifier (The Cookie)
 The Cookie Holds a Secure Identifier: The cookie placed on the user's browser does not contain the product data itself (e.g., product names or prices). Instead, it holds a unique, random, and cryptographically signed value, such as a Cart ID (e.g., cart_12345) or a Session ID.
@@ -81,12 +96,67 @@ Cache Miss: If the signature is somehow bypassed, the server will query Redis wi
 
 This layered system ensures the sensitive business logic and data remain safely on the server, leveraging the speed of Redis while only exposing an untrustworthy, yet validated, pointer (the ID) to the client.
 
+_____________________________
+March/5/2026
+BUILDING SHOPPING CART PROCESS
+Designing a shopping cart for a high-traffic environment requires a balance between speed (UX) and accuracy (Inventory). We want the user to add items instantly, but we must ensure we don't oversell a product during that "Flash Sale" spike we discussed.
+
+1. The Workflow Design
+A modern, scalable shopping cart process follows these stages:
+
+Add to Cart (The "Hot" Path): Instead of writing directly to PostgreSQL, we store the cart in Redis. This allows for sub-millisecond response times.
+
+Cart Persistence: We set a TTL (Time To Live) on the Redis key (e.g., 24 hours). If the user doesn't check out, the cart expires automatically, freeing up memory.
+
+Checkout (The "Critical" Path): This is where we transition from Redis to PostgreSQL to create a permanent order record and initiate the Saga Pattern for inventory.
+2. The Data Structure in RedisInstead of a simple string, use a Redis Hash or a JSON string keyed by the MerchantId and UserId.Example Redis Key: cart:merchant_123:user_456Example Value:JSON{
+  "items": [
+    {"productId": "iphone-15", "quantity": 1, "price": 999},
+    {"productId": "case-blue", "quantity": 1, "price": 29}
+  ],
+  "updatedAt": "2026-03-05T08:00:00Z"
+}
+3. Implementation PlanStepComponentLogic 
+    1. IdentityJWT / SessionIdentify which user is adding the item using their session cookie or token. 
+    2. ValidationProduct ServiceBriefly check if the ProductId exists and is "Active" (Read from a Read Replica). 
+    3. CacheRedisHSET or StringSet the cart data. This prevents hitting the main DB.
+    4. FinalizeSQL TransactionWhen the user clicks "Pay," move the data from Redis to the Transactions table.
+
+_____________________________
+March/ 19/ 1026
+- Hoàn tất addcart, removecart, gởi generated token mỗi request, javascript để ở index vẫn ok vì "Security does not come from hiding your JavaScript; it comes from Server-Side Validation", cụ thể, request chỉ send ProductId, sau đó search in database để lấy các tt như giá, hacker ko chỉnh sửa dc giá và "Even if a hacker reads your script and sees the URL /ShoppingCart/AddPost, they still cannot bypass your Anti-Forgery Token or change the price because your C# code checks the database."
+- Tuy nhiên, sẽ làm "we move it to a Separate File and Minify it" vì "This makes the file tiny (faster loading) and very hard for humans to read."
+
+
+_____________________________
+March/ 24/ 1026
+- The _orderService needs to handle high-stakes tasks: Database Transactions, Concurrency (to prevent overselling), and Data Integrity - Tính toàn vẹn của dữ liệu
+- //Shopping Cart entity serves as the "Live Work-in-Progress" area
+// A. Session Persistence (The "Don't Make Me Start Over" Rule)
+//If a user adds a "Nitro Cold Brew" to their cart in District 1 but their 
+//phone battery dies or they close the browser, the Entity saves that data in the database.
+//When they return, the system checks for an existing cart linked to their UserId and MerchantId.
+//If found, it loads that cart instead of starting fresh. This ensures users don't lose their
+
+//B. Inventory Reservation & Validation
+//Before the checkout even starts, the Shopping Cart entity allows 
+//the server to check: "Does the Thu Duc stall actually have 5 sugar canes 
+//left for this user?" It acts as a pre-check zone to ensure the order is actually possible.
+
+// C. Price and Discount Calculation
 
 
 
+_____________________________
+March/ 27/ 1026
+Professional Status WorkflowFor a juice business, I recommend using these standard statuses to keep your orders organized:
+Current Status           Meaning                        Action Needed
+Pending                  Order just placed.             Kitchen needs to see it.
+Processing               Juice is being made.           Staff is working on it.
+Shipped/Out for Delivery Driver has the juice.          Customer is waiting.
+Completed                Cash received/Juice delivered. Archive the order.Cancelled                Customer changed mind.         Refund or restock.
 
-
-
+Setting up a professional payment system for First Journey requires three main components: a Client-side UI to pick the method, a Server-side Controller to talk to the provider, and a Webhook to listen for the "Success" signal.
 
 
 

@@ -1,0 +1,33 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@using Microsoft.AspNetCore.Http
+
+<ul class="navbar-nav ms-auto">
+   
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle btn btn-outline-success" href="#" id="selectStall" data-bs-toggle="dropdown">
+                <i class="bi bi-shop"></i> Select a Stall
+            </a>
+            
+           
+
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item @(Context.Session.GetString("MerchantId") == "STALL_D1" ? "active" : "")" 
+                    href="/ShoppingCart/SetStallMerchant?stallId=STALL_D1">
+                    District 1 - Ben Thanh
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item @(Context.Session.GetString("MerchantId") == "STALL_TD" ? "active" : "")" 
+                    href="/ShoppingCart/SetStallMerchant?stallId=STALL_TD">
+                    Thu Duc - University
+                    </a>
+                </li>
+            </ul>
+        </li>
+   
+</ul>

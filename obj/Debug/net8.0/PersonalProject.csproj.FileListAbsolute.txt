@@ -331,3 +331,7 @@ D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug
 D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug\net8.0\PersonalProject.pdb
 D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug\net8.0\PersonalProject.genruntimeconfig.cache
 D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\obj\Debug\net8.0\ref\PersonalProject.dll
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Microsoft.OpenApi.dll
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\WORKING\Net Framework\TutorialASP.NETCoreServerSide\PersonalProject\bin\Debug\net8.0\Swashbuckle.AspNetCore.SwaggerUI.dll
