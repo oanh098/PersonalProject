@@ -15,6 +15,8 @@ public class ShoppingCart
     // public decimal TotalPrice => Items.Sum(i => i.Price * i.Quantity);
     public decimal TotalPrice { get { return Items.Sum(i => i.Price * i.Quantity); } }
 
+    public string Description { get; set; } = string.Empty;
+
 }
 //Shopping Cart entity serves as the "Live Work-in-Progress" area
 // A. Session Persistence (The "Don't Make Me Start Over" Rule)

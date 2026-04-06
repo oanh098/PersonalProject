@@ -114,6 +114,10 @@
               "target": "Package",
               "version": "[6.6.2, )"
             },
+            "payOS": {
+              "target": "Package",
+              "version": "[2.1.0, )"
+            },
             "xunit": {
               "target": "Package",
               "version": "[2.9.3, )"

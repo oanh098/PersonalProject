@@ -12,8 +12,8 @@ using PersonalProject.Data;
 namespace PersonalProject.Migrations
 {
     [DbContext(typeof(PersonalProjectContext))]
-    [Migration("20260306093334_AddCartItemTable")]
-    partial class AddCartItemTable
+    [Migration("20260406072040_CreateShoppingCartCartItem")]
+    partial class CreateShoppingCartCartItem
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -271,6 +271,10 @@ namespace PersonalProject.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric");
 
@@ -285,9 +289,131 @@ namespace PersonalProject.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
+                    b.Property<int?>("ShoppingCartId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("ShoppingCartId");
+
                     b.ToTable("CartItem");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.Order", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("DiscountCode")
+                        .HasColumnType("text");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("MerchantId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShippingAddress")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("TotalAmount")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.OrderDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("UnitPrice")
+                        .HasColumnType("numeric");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("OrderDetails");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.ShoppingCart", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("LastUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("MerchantId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>
@@ -333,6 +459,24 @@ namespace PersonalProject.Migrations
                     b.Navigation("RestaurantEntity");
                 });
 
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.CartItem", b =>
+                {
+                    b.HasOne("PersonalProject.Models.ShoppingCartProcess.ShoppingCart", null)
+                        .WithMany("Items")
+                        .HasForeignKey("ShoppingCartId");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.OrderDetail", b =>
+                {
+                    b.HasOne("PersonalProject.Models.ShoppingCartProcess.Order", "Order")
+                        .WithMany("OrderDetails")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>
                 {
                     b.HasOne("PersonalProject.Models.Skill", null)
@@ -343,6 +487,16 @@ namespace PersonalProject.Migrations
             modelBuilder.Entity("PersonalProject.Models.Restaurant.RestaurantEntity", b =>
                 {
                     b.Navigation("Menus");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.Order", b =>
+                {
+                    b.Navigation("OrderDetails");
+                });
+
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.ShoppingCart", b =>
+                {
+                    b.Navigation("Items");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>

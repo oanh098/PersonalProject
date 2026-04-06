@@ -11,6 +11,7 @@ using PersonalProject.Models.ShoppingCartProcess;
 using PersonalProject.Services;
 
 
+
 namespace PersonalProject.Controllers
 {
 // dotnet aspnet-codegenerator controller 
@@ -26,11 +27,14 @@ namespace PersonalProject.Controllers
         private readonly ICartService _cartService;
         private readonly IConfiguration _configuration;
         private readonly IOrderService _orderService;
+        private readonly IPaymentService _paymentService;
 
         public ShoppingCartController(PersonalProjectContext context
-        , ICartService cartService, IConfiguration configuration, IOrderService orderService)
+        , ICartService cartService, IConfiguration configuration, IOrderService orderService
+        , IPaymentService paymentService)
         {
             _orderService = orderService;
+            _paymentService = paymentService;
         
             _context = context;
             _cartService = cartService;
@@ -275,7 +279,7 @@ namespace PersonalProject.Controllers
                 merchantId = _configuration["StoreSettings:MerchantId"] ?? "default";
             }
 
-            // Fetch the current cart for the user
+            // 2. Fetch the current cart for the user
             var cart = await _cartService.GetCartAsync(merchantId, userId);
             if (cart.Items.Count == 0)
             {
@@ -285,20 +289,32 @@ namespace PersonalProject.Controllers
             // Here you would typically process the payment and create an order record in your database.
             // For this example, we'll just clear the cart and return a success message.
 
-            // 2. USE THE ORDER SERVICE HERE
+            // 3. USE THE ORDER SERVICE HERE
+            // Create the order in the database, PostgreSQL
             // This is the core "Proprietary Logic" we discussed
             Order newOrder = await _orderService.CreateOrderAsync(request, cart, merchantId, userId);
 
-            // Clear the cart after checkout
+            // 4. Generate the payment URL (e.g., Momo QR code) using the Payment Service
+            // Map your local Order obj to the DTOOrder for the PaymentService expects
+            var dtoOrder = new DTOOrder
+            {
+                TotalAmount = (long)newOrder.TotalAmount, // Cast to long if needed
+            };
+            string paymentUrl =  _paymentService.CreateSimpleVietQR(dtoOrder);
+
+
+            // 5. Clear the cart after (Only if you are sure the user is moving to payment)
             foreach (var item in cart.Items.ToList())
             {
                 await _cartService.RemoveItemAsync(merchantId, userId, item.ProductId);
             }
 
+            // 6. Return the PayOS payment URL to the frontend
+
             return Json(new { 
                 success = true,
                 message = $"Checkout successful! Your order has been placed. Thank you, {request.FullName}!",
-                redirectUrl = "/Orders" // Example of redirect URL after checkout 
+                redirectUrl = paymentUrl // This is now the VietQR page!
                 });
         }
 
@@ -336,7 +352,7 @@ namespace PersonalProject.Controllers
     #region DTOShoppingCart     
     
 
-    // DTO
+    // DTOAddToCartRequest has ProductId and Quantity,
     public class DTOAddToCartRequest
     {
         public int ProductId { get; set; } 
@@ -344,6 +360,9 @@ namespace PersonalProject.Controllers
         
     }
 
+
+    //Its job is to capture what the user wants to buy (e.g., a list of IDs and quantities). 
+    // It doesn't have a final price or an Order ID yet because the server hasn't created them.
     public class DTOCheckoutRequest
     {
         [Required (ErrorMessage = "Full name is required")]
@@ -381,5 +400,53 @@ namespace PersonalProject.Controllers
         // The Server pulls the Real Items from your Database/Cache using the UserId.
         // public List<DTOAddToCartRequest> Items { get; set; } = new List<DTOAddToCartRequest>();
     }
+
+    /// <summary>
+    /// using Records and Init is the standard "Pro" way 
+    /// to ensure data doesn't change unexpectedly during a payment.
+    /// follow this flow:
+    ///Receive DTOCheckoutRequest.
+    ///Save to Database to get a real OrderId.
+    ///Map the saved data to a fresh DTOOrder.
+    ///Send DTOOrder to MoMo.
+    /// </summary>
+    // DTOOrder (receipt, for payment) has the Price
+    public class DTOOrder
+    {
+        // 1. Identification
+        public string OrderId { get; init; } = string.Empty;
+
+        // 2. Financials
+        ///int and long comes down to storage space and the maximum number they can hold.
+        /// dealing with VND (Vietnamese Dong), this choice is very important 
+        /// because currency values in Vietnam can become very large very quickly.
+        public long TotalAmount { get; init; }
+        public string Currency { get; init; } = "VND";
+
+        // 3. Description (Show on Momo screen)
+        public string OrderInfo { get; init; } = string.Empty;
+
+        // 4. Items (Optional, but good for receipts)
+        /// <summary>
+        /// If your DTOAddToCartRequest only has ProductId and Quantity, 
+        /// your receipt (the OrderDto) will be missing the Price.
+        ///         DTOAddToCartRequest	                        OrderItemDto (in OrderDto)
+        /// Purpose	What the user wants to put in the bag.	    What the user actually paid for.
+        /// Price	Often missing (the server calculates it).   Must include the price at the time of purchase.
+        /// </summary>
+        public List<DTOOrderItem> Items { get; init; } = new();
+
+        // 5. Timestamp
+        public DateTime CreatedAt { get; init; } = DateTime.UtcNow;        
+    }
+
+    //: Use a separate OrderItemDto inside your OrderDto. 
+    // This ensures that once the order is created, 
+    // the price is "locked in." 
+    // Even if you change the price of juice in your database tomorrow, 
+    // the customer's receipt stays the same.
+    public record DTOOrderItem(string ProductName, int Quantity, long Price);
+
+
     #endregion
 }

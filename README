@@ -159,6 +159,18 @@ Completed                Cash received/Juice delivered. Archive the order.Cancel
 Setting up a professional payment system for First Journey requires three main components: a Client-side UI to pick the method, a Server-side Controller to talk to the provider, and a Webhook to listen for the "Success" signal.
 
 
+_____________________________
+March/ 29/ 1026
+- oh, wao, buiild app lên server render ko dc vì dùng external connection trong file appsettings.json
+- sau đó nghe AI copy internal connectionstring vào PersonalProject --> Manage section, Environment --> Create Environment Variables --> add new environment variables tên  ConnectionStrings__DefaultConnection: Host=dpg-d6jvggh5pdvs73dmvqsg-a;Port=5432;Database=personalproject_p550;Username=personalproject_p550_user;Password=5pD9FChN6Qqz5lrwvQQfXGvlI3Qe7n03;SslMode=Require;TrustServerCertificate=True;
+
+thì app đã build dc lên web. quá tuyệt.
+
+_____________________________
+March/ 30/ 1026
+OrderService: Saves the order to PostgreSQL, checks if you have enough sugarcane juice in stock, and updates the status from "Pending" to "Paid."
+
+PaymentService: Only knows how to "talk" to MoMo. It calculates security hashes, creates the MoMo link, and checks if the money actually arrived.
 
 
 

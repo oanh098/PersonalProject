@@ -29,5 +29,7 @@ namespace PersonalProject.Data
         public DbSet<PersonalProject.Models.ShoppingCartProcess.Order> Order { get; set; } = default!;
 
         public DbSet<PersonalProject.Models.ShoppingCartProcess.OrderDetail> OrderDetails { get; set; } = default!;
+
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.ShoppingCart> Payment { get; set; } = default!;
     }
 }

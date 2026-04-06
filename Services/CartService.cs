@@ -37,6 +37,7 @@ public class CartService : ICartService
             AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(7) // Cache for 7 days
         };
         await _cache.SetStringAsync(cacheKey, System.Text.Json.JsonSerializer.Serialize(cart), options);
+
         return cart;
     }
 

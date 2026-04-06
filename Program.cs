@@ -167,6 +167,8 @@ builder.Services.AddScoped<ICartService, CartService>();
 //"Whenever a Controller asks for an IOrderService (the Menu), 
 //give them an instance of OrderService (the Kitchen)."
 builder.Services.AddScoped<IOrderService, OrderService>(); 
+// Register the Payment Service for First Journey
+builder.Services.AddScoped<IPaymentService, PaymentService>();  
 
 
 // Print the environment and connection string to the console
