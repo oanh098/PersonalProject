@@ -14,16 +14,15 @@ public class PaymentService: IPaymentService
     private readonly PersonalProjectContext _personalProjectContext;
     private readonly PayOSClient _payOSClient;
 
-    public PaymentService(PersonalProjectContext personalProjectContext, 
-    IConfiguration config)
+    public PaymentService(PersonalProjectContext personalProjectContext)
     {
         _personalProjectContext = personalProjectContext;
-        var clientId = config["PayOS:ClientId"] ?? throw new ArgumentNullException("PayOS:ClientId is missing in appsettings.json");
-        var apiKey = config["PayOS:ApiKey"] ?? throw new ArgumentNullException("PayOS:ApiKey is missing in appsettings.json");
-        var checksumKey = config["PayOS:ChecksumKey"] ?? throw new ArgumentNullException
-        ("PayOS:ChecksumKey is missing in appsettings.json");
+        // var clientId = config["PayOS:ClientId"] ?? throw new ArgumentNullException("PayOS:ClientId is missing in appsettings.json");
+        // var apiKey = config["PayOS:ApiKey"] ?? throw new ArgumentNullException("PayOS:ApiKey is missing in appsettings.json");
+        // var checksumKey = config["PayOS:ChecksumKey"] ?? throw new ArgumentNullException
+        // ("PayOS:ChecksumKey is missing in appsettings.json");
 
-        _payOSClient = new PayOSClient(clientId, apiKey, checksumKey);
+        _payOSClient = new PayOSClient("", "", "0");
     }
 
     public async Task<string> CreatePaymentUrl(DTOOrder order)
@@ -91,9 +90,9 @@ public class PaymentService: IPaymentService
     public string CreateSimpleVietQR(DTOOrder order)
 {
     // 1. Your Bank Information (Replace with yours!)
-    string bankId = "970436"; // Example: Vietcombank (VCB)
-    string accountNo = "1234567890"; 
-    string accountName = "NGUYEN VAN A"; // Your full name
+    string bankId = "Sacombank"; // Example: Vietcombank (VCB)
+    string accountNo = "0853833045"; 
+    string accountName = "TRAN THUY OANH"; // Your full name
     string template = "compact2"; // Styles: 'qr_only', 'compact', 'compact2'
 
     // 2. Order Information
@@ -103,7 +102,9 @@ public class PaymentService: IPaymentService
     // 3. Construct the URL
     // This URL returns a direct .png image of the QR code
     string qrUrl = $"https://img.vietqr.io/image/{bankId}-{accountNo}-{template}.png" +
-                   $"?amount={amount}&addInfo={description}&accountName={Uri.EscapeDataString(accountName)}";
+                   $"?amount={amount}" + 
+                   $" &addInfo={description}" + 
+                   $"&accountName={Uri.EscapeDataString(accountName)}";
 
     return qrUrl;
 }

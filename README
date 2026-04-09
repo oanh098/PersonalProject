@@ -172,7 +172,9 @@ OrderService: Saves the order to PostgreSQL, checks if you have enough sugarcane
 
 PaymentService: Only knows how to "talk" to MoMo. It calculates security hashes, creates the MoMo link, and checks if the money actually arrived.
 
-
+_____________________________
+Apr/ 6/ 1026
+Sau khi tạo mới postgres db trên render, xóa và tạo lại migrate cho table CartItem và Shopping Cart, update new connection string của db mới, push new git, deploy thành công... Git -m "postgresql expired, created new one, update local connection string, create new migrate"
 
 
 
