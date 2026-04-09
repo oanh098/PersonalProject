@@ -99,11 +99,17 @@ public class PaymentService: IPaymentService
     int amount = (int)order.TotalAmount;
     string description = Uri.EscapeDataString($"First Journey Order {order.OrderId}"); // URL-encode the description
 
+    // CRITICAL UPDATE: SePay works best with a simple, unique code.
+    // Instead of "First Journey Order 123", we use "FJ123".
+    // This ensures the code is NOT cut off by the bank's character limit.
+    string shortDescription = $"FJ{order.OrderId}"; 
+    string encodedDescription = Uri.EscapeDataString(shortDescription);
+
     // 3. Construct the URL
     // This URL returns a direct .png image of the QR code
     string qrUrl = $"https://img.vietqr.io/image/{bankId}-{accountNo}-{template}.png" +
                    $"?amount={amount}" + 
-                   $" &addInfo={description}" + 
+                   $" &addInfo={encodedDescription}" + 
                    $"&accountName={Uri.EscapeDataString(accountName)}";
 
     return qrUrl;
