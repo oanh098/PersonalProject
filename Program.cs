@@ -16,14 +16,14 @@ using Humanizer;
 using Microsoft.OpenApi.Models; 
 
 
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Npgsql to handle DateTimeKind.Unspecified as UTC
 // This should be done once at application startup.
 // It's crucial to set EnableLegacyTimestampBehavior(false) for modern behavior.
 // If you don't want to use NodaTime, use the following:
-AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false); // Important for modern DateTime handling
+//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", false); // Important for modern DateTime handling
 
 // Load user secrets
 // only use secrets in development mode

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using PersonalProject.Models;
 using PersonalProject.Models.Restaurant;
 using PersonalProject.Models.GpBootstrap;
+using PersonalProject.Models.ShoppingCartProcess;
 
 namespace PersonalProject.Data
 {
@@ -26,10 +27,15 @@ namespace PersonalProject.Data
 
         public DbSet<PersonalProject.Models.PaymentAggregator.Transaction> Transaction { get; set; } = default!;
         public DbSet<PersonalProject.Models.ShoppingCartProcess.CartItem> CartItem { get; set; } = default!;
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.ShoppingCart> ShoppingCart { get; set; } = default!;
+
         public DbSet<PersonalProject.Models.ShoppingCartProcess.Order> Order { get; set; } = default!;
 
         public DbSet<PersonalProject.Models.ShoppingCartProcess.OrderDetail> OrderDetails { get; set; } = default!;
 
         public DbSet<PersonalProject.Models.ShoppingCartProcess.ShoppingCart> Payment { get; set; } = default!;
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.Product> Product { get; set; } = default!;
+
+        public DbSet<PersonalProject.Models.ShoppingCartProcess.ItemToPurchase> ItemToPurchase { get; set; } = default!;
     }
 }

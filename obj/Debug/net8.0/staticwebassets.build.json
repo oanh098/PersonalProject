@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "FGPMUI3CFp4ey5sp+01wzcXEzAjJGI6HIO85xKvNur0=",
+  "Hash": "utwbAOmeiNabY3HG8kFNL3uLKtmVhISxWqJE09FgZns=",
   "Source": "PersonalProject",
   "BasePath": "_content/PersonalProject",
   "Mode": "Default",
@@ -8320,6 +8320,25 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
+      "Identity": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\default-product.png",
+      "SourceId": "PersonalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\",
+      "BasePath": "_content/PersonalProject",
+      "RelativePath": "images/default-product.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\default-product.png"
+    },
+    {
       "Identity": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\profile\\portfolio\\agriculture.webp",
       "SourceId": "PersonalProject",
       "SourceType": "Discovered",
@@ -9116,6 +9135,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\restaurant\\specials-5.jpg"
+    },
+    {
+      "Identity": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\shoppingcartdiagram.gif",
+      "SourceId": "PersonalProject",
+      "SourceType": "Discovered",
+      "ContentRoot": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\",
+      "BasePath": "_content/PersonalProject",
+      "RelativePath": "images/shoppingcartdiagram.gif",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\shoppingcartdiagram.gif"
     },
     {
       "Identity": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\Visible\\about\\about-8.webp",

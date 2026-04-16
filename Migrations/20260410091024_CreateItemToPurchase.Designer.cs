@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalProject.Data;
@@ -11,9 +12,11 @@ using PersonalProject.Data;
 namespace PersonalProject.Migrations
 {
     [DbContext(typeof(PersonalProjectContext))]
-    partial class PersonalProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20260410091024_CreateItemToPurchase")]
+    partial class CreateItemToPurchase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -462,9 +465,6 @@ namespace PersonalProject.Migrations
                     b.Property<decimal>("SubTotalMoney")
                         .HasColumnType("numeric");
 
-                    b.Property<decimal>("TotalMoney")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
@@ -474,7 +474,7 @@ namespace PersonalProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ShoppingCart");
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>

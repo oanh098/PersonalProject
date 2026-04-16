@@ -4,8 +4,8 @@ using PersonalProject.Services;
 
 namespace PersonalProject.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api")]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
@@ -24,8 +24,9 @@ namespace PersonalProject.Controllers
 
             var dtoOrder = new DTOOrder
             {
-                
+                OrderId = order.Id,
                 TotalAmount = (long) order.TotalAmount,
+                OrderInfo = $"Thanh toán FJ{order.Id}"
             };
             // Generate the URL string
             string qrCodeUrl = _paymentService.CreateSimpleVietQR(dtoOrder);
@@ -34,32 +35,48 @@ namespace PersonalProject.Controllers
             // simply puts this in an <img src="..." /> tag.
             return Ok(new { url = qrCodeUrl });
         }
+
+
+        //https://personalproject-a5zz.onrender.com/api/payment/sepay-webhook
         
-        [HttpPost("api/sepay-webhook")]
-        public async Task<IActionResult> HandleSepayWebhook([FromBody] IDictionary<string, string> SePaydata)
+        // [HttpPost("sepay-webhook")]
+        // public async Task<IActionResult> HandleSepayWebhook([FromBody] IDictionary<string, string> SePaydata)
+        // {
+        //     // // 0. Security: Verify the callback is really from SePay (e.g., check signature, IP allowlist, etc.)
+        //     // var authHeader = Request.Headers["Authorization"].ToString();
+        //     // var expectedToken = "Bearer YOUR_COPIED_TOKEN_HERE";
+
+        //     // if (string.IsNullOrEmpty(authHeader) || authHeader != expectedToken)
+        //     // {
+        //     //     return Unauthorized("Invalid Webhook Token");
+        //     // }
+
+        //     // 1. Find the order using 'code' or 'content' from SePay
+        //     var orderId = await _orderService.GetOrderAsync(SePaydata["code"]);
+        //     var amountPaid = decimal.Parse(SePaydata["amount"].ToString() ?? "0");
+
+        //     // 2. Find the order in DB
+        //     if (orderId != null && amountPaid >= orderId.TotalAmount)
+        //     {
+        //         // 3. Update order status based on the payment result
+        //         await _orderService.UpdateOrderStatusAsync(orderId.Id, "Paid");
+        //         return Ok(new { message = "Payment successful, order updated." });
+        //     }
+        //     // Handle Sepay webhook logic here
+        //     return NoContent();
+        // }
+
+
+        [HttpPost("sepay-webhook")]
+        public IActionResult ReceivePayment([FromBody] object data)
         {
-            // // 0. Security: Verify the callback is really from SePay (e.g., check signature, IP allowlist, etc.)
-            // var authHeader = Request.Headers["Authorization"].ToString();
-            // var expectedToken = "Bearer YOUR_COPIED_TOKEN_HERE";
+            // 1. Print to the server console so you can see it
+            Console.WriteLine("--- SEPAY WEBHOOK RECEIVED ---");
+            Console.WriteLine(data?.ToString());
+            Console.WriteLine("------------------------------");
 
-            // if (string.IsNullOrEmpty(authHeader) || authHeader != expectedToken)
-            // {
-            //     return Unauthorized("Invalid Webhook Token");
-            // }
-
-            // 1. Find the order using 'code' or 'content' from SePay
-            var orderId = await _orderService.GetOrderAsync(SePaydata["code"]);
-            var amountPaid = decimal.Parse(SePaydata["amount"].ToString() ?? "0");
-
-            // 2. Find the order in DB
-            if (orderId != null && amountPaid >= orderId.TotalAmount)
-            {
-                // 3. Update order status based on the payment result
-                await _orderService.UpdateOrderStatusAsync(orderId.Id, "Paid");
-                return Ok(new { message = "Payment successful, order updated." });
-            }
-            // Handle Sepay webhook logic here
-            return NoContent();
+            // 2. Return a 200 OK so SePay knows you got the message
+            return Ok(new { status = "success", message = "Data received by First Journey server" });
         }
     }   
 

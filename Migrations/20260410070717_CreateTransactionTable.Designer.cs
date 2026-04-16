@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalProject.Data;
@@ -11,9 +12,11 @@ using PersonalProject.Data;
 namespace PersonalProject.Migrations
 {
     [DbContext(typeof(PersonalProjectContext))]
-    partial class PersonalProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20260410070717_CreateTransactionTable")]
+    partial class CreateTransactionTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,38 +292,14 @@ namespace PersonalProject.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CartItem");
-                });
-
-            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.ItemToPurchase", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<decimal>("PricePerUnit")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
                     b.Property<int?>("ShoppingCartId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProductId");
-
                     b.HasIndex("ShoppingCartId");
 
-                    b.ToTable("ItemToPurchase");
+                    b.ToTable("CartItem");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.Order", b =>
@@ -452,6 +431,10 @@ namespace PersonalProject.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<DateTime>("LastUpdated")
                         .HasColumnType("timestamp without time zone");
 
@@ -459,22 +442,13 @@ namespace PersonalProject.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("SubTotalMoney")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("TotalMoney")
-                        .HasColumnType("numeric");
-
                     b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<decimal>("VatAmount")
-                        .HasColumnType("numeric");
-
                     b.HasKey("Id");
 
-                    b.ToTable("ShoppingCart");
+                    b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.Skill", b =>
@@ -520,19 +494,11 @@ namespace PersonalProject.Migrations
                     b.Navigation("RestaurantEntity");
                 });
 
-            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.ItemToPurchase", b =>
+            modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.CartItem", b =>
                 {
-                    b.HasOne("PersonalProject.Models.ShoppingCartProcess.CartItem", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("PersonalProject.Models.ShoppingCartProcess.ShoppingCart", null)
                         .WithMany("Items")
                         .HasForeignKey("ShoppingCartId");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("PersonalProject.Models.ShoppingCartProcess.OrderDetail", b =>

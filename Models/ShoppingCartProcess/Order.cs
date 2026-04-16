@@ -1,9 +1,13 @@
 using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace PersonalProject.Models.ShoppingCartProcess;
 
 public class Order
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; } // The unique Order ID
 
     // --- Link to User and Merchant ---

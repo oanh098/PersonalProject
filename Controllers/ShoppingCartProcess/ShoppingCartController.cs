@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Moq;
 using PersonalProject.Data;
 using PersonalProject.Models.ShoppingCartProcess;
 using PersonalProject.Services;
@@ -46,16 +47,23 @@ namespace PersonalProject.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.DebugUser = User.Identity?.Name;
-            ViewBag.DebugMerchant = HttpContext.Session.GetString("MerchantId");
+            ViewBag.DebugMerchant = HttpContext.Session.GetString("MerchantId");           
             
             var merchantId = HttpContext.Session.GetString("MerchantId");
             if(string.IsNullOrEmpty(merchantId))
             {
                 return RedirectToAction("SelectStall");
             }
-             
 
-            return View(await _context.CartItem.ToListAsync());
+            var CartItemAsProduct = await _context.CartItem.ToListAsync();
+            var ItemToPurchase = _cartService.GetCartAsync(merchantId, User.Identity?.Name ?? "anonymous").Result.Items;
+
+            var viewModel = new ShoppingPageViewModel
+            {
+                CartItemAsProduct = CartItemAsProduct,
+                ItemToPurchase = ItemToPurchase
+            };
+            return View(viewModel);
         }
 
         // GET: ShoppingCart/Details/5
@@ -188,23 +196,29 @@ namespace PersonalProject.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddPost([FromBody] DTOAddToCartRequest request) 
+        public async Task<IActionResult> AddtoShoppingCart([FromBody] 
+        DTOAddToCartRequest request) 
         {
             var userId = User.Identity?.Name?? "anonymous" ; // Assuming user is authenticated
             var merchantId = HttpContext.Session.GetString("MerchantId") ?? "STALL_DEFAULT"; // Example of getting merchant ID from Session.Items["MerchantId"]?.ToString() ?? "default"; // Example of getting merchant ID from HttpContext    
+            
+            
             // using DTO to receive productId from AJAX request, 
             // then fetch product details from database
-            var product = await _context.CartItem.FindAsync(request.ProductId);
-            if (product == null)
+
+            var CartItemAsProduct = await _context.CartItem.FindAsync(request.Id);
+           
+            if (CartItemAsProduct == null)
             {
-                return NotFound();
+                return NotFound(new { message = "Item not found in catalog." });
             }
-            var item = new CartItem
+            var item = new ItemToPurchase
             {
-                ProductId = product.ProductId,
-                ProductName = product.ProductName,
                 Quantity = request.Quantity, // Default quantity, can be modified to accept from request
-                Price = product.Price
+                PricePerUnit = CartItemAsProduct.Price,
+                ProductId = request.Id,
+                Product = CartItemAsProduct
+
             };
 
             Console.WriteLine($"--- DEBUG INFO ---");
@@ -212,6 +226,7 @@ namespace PersonalProject.Controllers
             Console.WriteLine($"Is Authenticated: {User.Identity?.IsAuthenticated}");
             Console.WriteLine($"Merchant ID from Context: {merchantId}");
             Console.WriteLine($"Quantity from request: {request.Quantity}");
+
 
             Console.WriteLine($"Merchant ID from HttpContext.Items: {merchantId}");
             Console.WriteLine($"------------------");
@@ -221,7 +236,7 @@ namespace PersonalProject.Controllers
             var updatedCart = await _cartService.AddItemAsync(merchantId, userId, item);
 
             return Json(new  { 
-                message = $"{product.ProductName} added!"
+                message = $"{CartItemAsProduct.ProductName} added!"
                 , cart = updatedCart
                 , success = true
                 }); 
@@ -241,11 +256,11 @@ namespace PersonalProject.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RemovePost([FromQuery] string productId) 
+        public async Task<IActionResult> RemovePost([FromQuery] int Id) 
         {
             var userId = User.Identity?.Name?? "anonymous" ; // Assuming user is authenticated
-            var merchantId = "default"; // Replace with actual merchant ID if needed
-            var updatedCart = await _cartService.RemoveItemAsync(merchantId, userId, productId);
+           var merchantId = HttpContext.Session.GetString("MerchantId") ?? "STALL_DEFAULT";
+            var updatedCart = await _cartService.RemoveItemAsync(merchantId, userId, Id);
             Console.WriteLine($"--- updatedCart INFO ---: {updatedCart.Items.Count}" );
             //  return Json(updatedCart); 
 
@@ -309,7 +324,7 @@ namespace PersonalProject.Controllers
                 await _cartService.RemoveItemAsync(merchantId, userId, item.ProductId);
             }
 
-            // 6. Return the PayOS payment URL to the frontend
+            // 6. Return the QR payment URL to the frontend
 
             return Json(new { 
                 success = true,
@@ -322,7 +337,7 @@ namespace PersonalProject.Controllers
         public async Task<IActionResult> GetCart()
         {
             var userId = User.Identity?.Name ?? "anonymous";
-            var merchantId = "default";
+            var merchantId = HttpContext.Session.GetString("MerchantId") ?? "STALL_DEFAULT";
 
             // Re-use your existing service logic to fetch the current state
             var currentCart = await _cartService.GetCartAsync(merchantId, userId);
@@ -355,7 +370,7 @@ namespace PersonalProject.Controllers
     // DTOAddToCartRequest has ProductId and Quantity,
     public class DTOAddToCartRequest
     {
-        public int ProductId { get; set; } 
+        public int Id { get; set; } 
         public int Quantity { get; set; } = 1; // Default quantity
         
     }
@@ -414,7 +429,7 @@ namespace PersonalProject.Controllers
     public class DTOOrder
     {
         // 1. Identification
-        public string OrderId { get; init; } = string.Empty;
+        public int OrderId { get; init; }
 
         // 2. Financials
         ///int and long comes down to storage space and the maximum number they can hold.
@@ -422,6 +437,7 @@ namespace PersonalProject.Controllers
         /// because currency values in Vietnam can become very large very quickly.
         public long TotalAmount { get; init; }
         public string Currency { get; init; } = "VND";
+
 
         // 3. Description (Show on Momo screen)
         public string OrderInfo { get; init; } = string.Empty;

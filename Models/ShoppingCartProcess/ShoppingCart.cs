@@ -9,13 +9,18 @@ public class ShoppingCart
     public string UserId { get; set; } = string.Empty;
     public string MerchantId { get; set; } = string.Empty;
 
-    public List<CartItem> Items { get; set; } = new List<CartItem>();
+
+    // Relationship: 1 ShoppingCart has Many itemsToPurchase
+    public List<ItemToPurchase> Items { get; set; } = new List<ItemToPurchase>();
     public DateTime LastUpdated { get; set; } = DateTime.UtcNow;
 
     // public decimal TotalPrice => Items.Sum(i => i.Price * i.Quantity);
-    public decimal TotalPrice { get { return Items.Sum(i => i.Price * i.Quantity); } }
+    public decimal SubTotalMoney { get; set; }
+    public decimal VatAmount { get; set; } // Value Added Tax
+    public decimal TotalMoney { get; set;}
 
-    public string Description { get; set; } = string.Empty;
+    // public void PlaceOrder() { /* Logic to finalize */ }
+    // public void CancelOrder() { /* Logic to clear cart */ }
 
 }
 //Shopping Cart entity serves as the "Live Work-in-Progress" area

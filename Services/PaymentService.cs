@@ -88,34 +88,35 @@ public class PaymentService: IPaymentService
     }
 
     public string CreateSimpleVietQR(DTOOrder order)
-{
-    // 1. Your Bank Information (Replace with yours!)
-    string bankId = "Sacombank"; // Example: Vietcombank (VCB)
-    string accountNo = "0853833045"; 
-    string accountName = "TRAN THUY OANH"; // Your full name
-    string template = "compact2"; // Styles: 'qr_only', 'compact', 'compact2'
+    {
+        // 1. Your Bank Information (Replace with yours!)
+        string bankId = "Sacombank"; // Example: Vietcombank (VCB)
+        string accountNo = "0853833045"; 
+        string accountName = "TRAN THUY OANH"; // Your full name
+        string template = "compact2"; // Styles: 'qr_only', 'compact', 'compact2'
 
-    // 2. Order Information
-    int amount = (int)order.TotalAmount;
-    string description = Uri.EscapeDataString($"First Journey Order {order.OrderId}"); // URL-encode the description
+        // 2. Order Information
+        int amount = (int)order.TotalAmount;
+        string description = Uri.EscapeDataString($"First Journey Order {order.OrderId}"); // URL-encode the description
 
-    // CRITICAL UPDATE: SePay works best with a simple, unique code.
-    // Instead of "First Journey Order 123", we use "FJ123".
-    // This ensures the code is NOT cut off by the bank's character limit.
-    string shortDescription = $"FJ{order.OrderId}"; 
-    string encodedDescription = Uri.EscapeDataString(shortDescription);
+        // CRITICAL UPDATE: SePay works best with a simple, unique code.
+        // Instead of "First Journey Order 123", we use "FJ123".
+        // This ensures the code is NOT cut off by the bank's character limit.
+        string shortDescription = $"FJ{order.OrderId}"; 
+        string encodedDescription = Uri.EscapeDataString(shortDescription);
 
-    // 3. Construct the URL
-    // This URL returns a direct .png image of the QR code
+        // 3. Construct the URL
+        // This URL returns a direct .png image of the QR code
+        // Use this version to avoid hidden spaces
     string qrUrl = $"https://img.vietqr.io/image/{bankId}-{accountNo}-{template}.png" +
-                   $"?amount={amount}" + 
-                   $" &addInfo={encodedDescription}" + 
-                   $"&accountName={Uri.EscapeDataString(accountName)}";
+                $"?amount={amount}" + 
+                $"&addInfo={encodedDescription}" + 
+                $"&accountName={Uri.EscapeDataString(accountName)}";
 
-    return qrUrl;
-}
+        return qrUrl;
+    }
 
 
-
+    
 
 }

@@ -1641,6 +1641,10 @@
       "PackagePath": "staticwebassets\\images\\Visible\\services\\services-8.webp"
     },
     {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\default-product.png",
+      "PackagePath": "staticwebassets\\images\\default-product.png"
+    },
+    {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\profile\\portfolio\\agriculture.webp",
       "PackagePath": "staticwebassets\\images\\profile\\portfolio\\agriculture.webp"
     },
@@ -1807,6 +1811,10 @@
     {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\restaurant\\specials-5.jpg",
       "PackagePath": "staticwebassets\\images\\restaurant\\specials-5.jpg"
+    },
+    {
+      "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\images\\shoppingcartdiagram.gif",
+      "PackagePath": "staticwebassets\\images\\shoppingcartdiagram.gif"
     },
     {
       "Id": "D:\\WORKING\\Net Framework\\TutorialASP.NETCoreServerSide\\PersonalProject\\wwwroot\\js\\GpBootstrap.js",

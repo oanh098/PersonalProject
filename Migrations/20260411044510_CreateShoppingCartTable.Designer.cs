@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PersonalProject.Data;
@@ -11,9 +12,11 @@ using PersonalProject.Data;
 namespace PersonalProject.Migrations
 {
     [DbContext(typeof(PersonalProjectContext))]
-    partial class PersonalProjectContextModelSnapshot : ModelSnapshot
+    [Migration("20260411044510_CreateShoppingCartTable")]
+    partial class CreateShoppingCartTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -460,9 +463,6 @@ namespace PersonalProject.Migrations
                         .HasColumnType("text");
 
                     b.Property<decimal>("SubTotalMoney")
-                        .HasColumnType("numeric");
-
-                    b.Property<decimal>("TotalMoney")
                         .HasColumnType("numeric");
 
                     b.Property<string>("UserId")

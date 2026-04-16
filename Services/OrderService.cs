@@ -29,7 +29,7 @@ public class OrderService : IOrderService
             ShippingAddress = request.ShippingAddress,
             PaymentMethod = request.PaymentMethod,
             Note = request.Note,
-            TotalAmount = shoppingCart.Items.Sum(i => i.Price * i.Quantity),
+            TotalAmount = shoppingCart.Items.Sum(i => i.PricePerUnit * i.Quantity),
             Status = "Pending",
             CreatedDate = DateTime.UtcNow
         };
@@ -43,10 +43,10 @@ public class OrderService : IOrderService
             var oderDetail = new OrderDetail
             {
                 OrderId = order.Id,
-                ProductId = item.ProductId,
-                ProductName = item.ProductName,
+                ProductId = item.ProductId.ToString(),
+                ProductName = item.Product.ProductName,
                 Quantity = item.Quantity,
-                UnitPrice = item.Price
+                UnitPrice = item.PricePerUnit
             };
             _personalProjectContext.OrderDetails.Add(oderDetail);
         }
@@ -55,6 +55,13 @@ public class OrderService : IOrderService
         return order;
     }
 
+/*************  ✨ Windsurf Command ⭐  *************/
+        /// <summary>
+        /// Get an order by order id.
+        /// </summary>
+        /// <param name="orderId">The order id.</param>
+        /// <returns>The order if found, otherwise null.</returns>
+/*******  837b6275-9448-4879-bc21-4bf4d4f8ab30  *******/
     public async Task<Order?> GetOrderAsync(string orderId)
     {
         if (!int.TryParse(orderId, out int id))

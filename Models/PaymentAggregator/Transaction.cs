@@ -33,6 +33,8 @@ public class Transaction
 
     // Metadata for the Merchant's reference
     public string OrderReference { get; set; } = string.Empty; // Reference to the order being paid for
+
+    public string? CustomerEmail { get; set; } // Optional: for sending receipts or notificationsc
 }
 public enum TransactionStatus
 {

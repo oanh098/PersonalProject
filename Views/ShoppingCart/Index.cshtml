@@ -1,6 +1,7 @@
 @using PersonalProject.Models.ShoppingCartProcess
+
 @Html.AntiForgeryToken()
-@model IEnumerable<CartItem>
+@model ShoppingPageViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -19,22 +20,22 @@
             <th>
             <!--"Look at the model I defined at the top of this page 
             and find the metadata for ProductName."-->
-                @Html.DisplayNameFor(model => model.ProductId)
+                @Html.DisplayNameFor(model => model.CartItemAsProduct.First().ProductId)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ProductName)
+                @Html.DisplayNameFor(model => model.CartItemAsProduct.First().ProductName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Quantity)
+                @Html.DisplayNameFor(model => model.CartItemAsProduct.First().Quantity)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Price)
+                @Html.DisplayNameFor(model => model.CartItemAsProduct.First().Price)
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.CartItemAsProduct) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.ProductId)
@@ -66,7 +67,7 @@
         <div class="col-md-8">
             <h2 class="mb-4">Available Products</h2>
             <div class="row">
-                @foreach (var product in Model) {
+                @foreach (var product in Model.CartItemAsProduct) {
                     <div class="col-sm-6">
                         <div class="card mb-3 shadow-sm">
                             <div class="card-body text-center">
@@ -193,7 +194,7 @@
                 }
                
                 const requestBody = {
-                    ProductId: button.getAttribute('data-id'),
+                    Id: button.getAttribute('data-id'),
                     Quantity: qty
                 };
                 button.disabled = true; // Disable button to prevent multiple clicks
@@ -202,7 +203,7 @@
 
                 try {
                     
-                    const response = await fetch('/ShoppingCart/AddPost', {
+                    const response = await fetch('/ShoppingCart/AddtoShoppingCart', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -213,6 +214,7 @@
 
                     if (response.ok) {
                         const result = await response.json();
+                        console.log("Full Result Data:", result);
                         renderCart(result.cart);
                        
 
@@ -239,9 +241,9 @@
 
         document.getElementById('cart-list').addEventListener('click', async (e) => {
             if (e.target.classList.contains('remove-item')) {
-                const productId = e.target.getAttribute('data-id');
+                const pId = e.target.getAttribute('data-id');
                 try {
-                    const response = await fetch(`/ShoppingCart/RemovePost?productId=${productId}`, {
+                    const response = await fetch(`/ShoppingCart/RemovePost?Id=${pId}`, {
                         method: 'POST',
                     });
 
@@ -282,7 +284,7 @@
             // Clear existing cart items
             cartList.innerHTML = cart.items.map(item => `
                 <li class="list-group-item d-flex justify-content-between align-items-center">
-                    ${item.productName} 
+                    ${item.product.productName} 
                     <span class="badge bg-primary rounded-pill">x${item.quantity}</span>
                     <a href="javascript:void(0)" 
                     class="text-danger remove-item" 
@@ -293,7 +295,7 @@
                 </li>
                 `).join('');
 
-                cartTotal.innerText = '$' + cart.totalPrice.toFixed(2);
+                cartTotal.innerText = '$' + cart.totalMoney.toLocaleString('vi-VN') + ' VND';
         }
     </script>
 }
