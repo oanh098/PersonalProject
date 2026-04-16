@@ -5,7 +5,6 @@ using PersonalProject.Services;
 namespace PersonalProject.Controllers
 {
     [ApiController]
-    [Route("api")]
     public class PaymentController : ControllerBase
     {
         private readonly IPaymentService _paymentService;
@@ -67,7 +66,7 @@ namespace PersonalProject.Controllers
         // }
 
 
-        [HttpPost("sepay-webhook")]
+        [HttpPost("api/payment/sepay-webhook")]
         public IActionResult ReceivePayment([FromBody] object data)
         {
             // 1. Print to the server console so you can see it
