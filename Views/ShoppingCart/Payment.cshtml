@@ -10,13 +10,14 @@
 <p id="status-message">Please scan to pay...</p>
 
 <script>
+    const API_BASE_URL = "https://personalproject-a5zz.onrender.com";
     const orderId = document.getElementById('order-id').value;
     const statusMsg = document.getElementById('status-message');
 
     // 1. Polling: Ask server every 3 seconds if paid
     const checkInterval = setInterval(async () => {
         try {
-            const response = await fetch(`/api/payment/check-status/${orderId}`);
+            const response = await fetch(`${API_BASE_URL}/api/payment/check-status/${orderId}`);
             const result = await response.text(); // Assuming endpoint returns "PAID" or "PENDING"
 
             if (result === "PAID") {
