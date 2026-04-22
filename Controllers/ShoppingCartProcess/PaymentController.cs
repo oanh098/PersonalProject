@@ -77,9 +77,9 @@ namespace PersonalProject.Controllers
         public async Task<IActionResult> ReceivePayment([FromBody] SeepayNotification data)
         {
             // // 1. Print to the server console so you can see it
-            // Console.WriteLine("--- SEPAY WEBHOOK RECEIVED ---");
-            // Console.WriteLine(data?.ToString());
-            // Console.WriteLine("------------------------------");
+            Console.WriteLine("--- SEPAY WEBHOOK RECEIVED ---");
+            Console.WriteLine(data?.ToString());
+            Console.WriteLine("------------------------------");
 
             // // 2. Return a 200 OK so SePay knows you got the message
             // return Ok(new { status = "success", message = "Data received by First Journey server" });
