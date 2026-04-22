@@ -389,15 +389,18 @@ namespace PersonalProject.Controllers
         [HttpGet]
         public async Task<IActionResult> OrderSuccess(string orderId)
         {
-            var order = await _orderService.GetOrderAsync(orderId);
-            if (order == null)
-            {
-                // If the order isn't found, send them back home
-                return RedirectToAction("Index", "Home");
-            }
+            // var order = await _orderService.GetOrderAsync(orderId);
+            // if (order == null)
+            // {
+            //     // If the order isn't found, send them back home
+            //     return RedirectToAction("Index", "Home");
+            // }
 
-            // Pass the order to the view
-            return View(order);
+            // // Pass the order to the view
+            // return View(order);
+            
+            TempData["Notification"] = "Order confirmed! Thank you for your purchase.";
+            return View();
         }
 
 

@@ -5,7 +5,7 @@ namespace PersonalProject.Models;
 public class SeepayNotification
 {
     public string Gateway { get; set; } = string.Empty;
-        public string TransactionDate { get; set; } = string.Empty; // Example: "2024-06-01T12:34:56Z"
+    public string TransactionDate { get; set; } = string.Empty; // Example: "2024-06-01T12:34:56Z"
     public string AccountNumber { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty; // This is the "Order ID" that you sent in the "content" field of the payment request
     public string TransferType { get; set; } = string.Empty; // Example: "IN" for incoming payment

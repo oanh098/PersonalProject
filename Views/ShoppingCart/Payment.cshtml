@@ -10,7 +10,9 @@
 <p id="status-message">Please scan to pay...</p>
 
 <script>
-    const API_BASE_URL = "https://personalproject-a5zz.onrender.com";
+    const API_BASE_URL = window.location.origin.includes('localhost') 
+    ? 'http://localhost:5223' 
+    : 'https://personalproject-a5zz.onrender.com';
     const orderId = document.getElementById('order-id').value;
     const statusMsg = document.getElementById('status-message');
 

@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonalProject.Services;
 using PersonalProject.Models;
 using Microsoft.Extensions.Caching.Distributed;
+using System.Text.RegularExpressions;
 
 
 namespace PersonalProject.Controllers
@@ -12,14 +13,16 @@ namespace PersonalProject.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly IOrderService _orderService;
+        private readonly ILogger<PaymentController> _logger;
 
         private readonly IDistributedCache _cache;
         public PaymentController(IPaymentService paymentService, 
-        IOrderService orderService, IDistributedCache cache)
+        IOrderService orderService, IDistributedCache cache, ILogger<PaymentController> logger)
         {
             _paymentService = paymentService;
             _orderService = orderService;
             _cache = cache;
+            _logger = logger;
         }
 
         [HttpGet("checkout-qr/{orderId}")]
@@ -80,13 +83,29 @@ namespace PersonalProject.Controllers
             Console.WriteLine("--- SEPAY WEBHOOK RECEIVED ---");
             Console.WriteLine(data?.ToString());
             Console.WriteLine("------------------------------");
+            _logger.LogInformation("Webhook Received. Content: {Content}", data?.Content);
+            if (data == null) return BadRequest("No data received");
+            if (string.IsNullOrWhiteSpace(data.Content))
+            {
+                _logger.LogWarning("Webhook received but 'Content' was null or empty.");
+                return BadRequest("Content missing");
+            }
+            var match = Regex.Match(data.Content, @"FJ(\d+)");
+    
+            if (!match.Success)
+            {
+                _logger.LogWarning("Could not find Order ID in content: {Content}", data.Content);
+                return BadRequest("Invalid content format");
+            }
 
             // // 2. Return a 200 OK so SePay knows you got the message
             // return Ok(new { status = "success", message = "Data received by First Journey server" });
 
             // Create a temporary key based on the 'content' (Order ID) sent by the user
             // Example: "payment_status:FJ0123"
-            string statusKey = $"payment_status:{data.Content}"; 
+
+            string orderId = match.Value; // This will be "FJ40"
+            string statusKey = $"payment_status:{orderId}"; 
             
             // Save "PAID" in the cache for 10 minutes
             await _cache.SetStringAsync(statusKey, "PAID", new DistributedCacheEntryOptions {
@@ -102,6 +121,7 @@ namespace PersonalProject.Controllers
         {
             var status = await _cache.GetStringAsync($"payment_status:{orderId}");
             return status ?? "PENDING";
+            // return "PAID";
         }
 
           
