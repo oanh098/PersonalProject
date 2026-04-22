@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonalProject.Services;
+using PersonalProject.Models;
+using Microsoft.Extensions.Caching.Distributed;
+
 
 namespace PersonalProject.Controllers
 {
@@ -9,10 +12,14 @@ namespace PersonalProject.Controllers
     {
         private readonly IPaymentService _paymentService;
         private readonly IOrderService _orderService;
-        public PaymentController(IPaymentService paymentService, IOrderService orderService)
+
+        private readonly IDistributedCache _cache;
+        public PaymentController(IPaymentService paymentService, 
+        IOrderService orderService, IDistributedCache cache)
         {
             _paymentService = paymentService;
             _orderService = orderService;
+            _cache = cache;
         }
 
         [HttpGet("checkout-qr/{orderId}")]
@@ -67,16 +74,37 @@ namespace PersonalProject.Controllers
 
 
         [HttpPost("api/payment/sepay-webhook")]
-        public IActionResult ReceivePayment([FromBody] object data)
+        public async Task<IActionResult> ReceivePayment([FromBody] SeepayNotification data)
         {
-            // 1. Print to the server console so you can see it
-            Console.WriteLine("--- SEPAY WEBHOOK RECEIVED ---");
-            Console.WriteLine(data?.ToString());
-            Console.WriteLine("------------------------------");
+            // // 1. Print to the server console so you can see it
+            // Console.WriteLine("--- SEPAY WEBHOOK RECEIVED ---");
+            // Console.WriteLine(data?.ToString());
+            // Console.WriteLine("------------------------------");
 
-            // 2. Return a 200 OK so SePay knows you got the message
-            return Ok(new { status = "success", message = "Data received by First Journey server" });
+            // // 2. Return a 200 OK so SePay knows you got the message
+            // return Ok(new { status = "success", message = "Data received by First Journey server" });
+
+            // Create a temporary key based on the 'content' (Order ID) sent by the user
+            // Example: "payment_status:FJ0123"
+            string statusKey = $"payment_status:{data.Content}"; 
+            
+            // Save "PAID" in the cache for 10 minutes
+            await _cache.SetStringAsync(statusKey, "PAID", new DistributedCacheEntryOptions {
+                AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+            });
+
+            return Ok(new { status = "success" });
+        
         }
+
+        [HttpGet("api/payment/check-status/{orderId}")]
+        public async Task<string> CheckStatus(string orderId)
+        {
+            var status = await _cache.GetStringAsync($"payment_status:{orderId}");
+            return status ?? "PENDING";
+        }
+
+          
     }   
 
     

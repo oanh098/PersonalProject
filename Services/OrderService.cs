@@ -20,6 +20,9 @@ public class OrderService : IOrderService
     public async Task<Order> CreateOrderAsync(DTOCheckoutRequest request, 
         ShoppingCart shoppingCart, string merchantId, string userId)
     {
+        using var transaction = await _personalProjectContext.Database.BeginTransactionAsync();
+        try 
+        {
         var order = new Order
         {
             MerchantId = merchantId,
@@ -51,17 +54,33 @@ public class OrderService : IOrderService
             _personalProjectContext.OrderDetails.Add(oderDetail);
         }
         await _personalProjectContext.SaveChangesAsync();
+        await transaction.CommitAsync();
 
         return order;
+        }
+        catch (Exception)
+        {
+            await transaction.RollbackAsync();
+            throw;
+        }
     }
 
-/*************  ✨ Windsurf Command ⭐  *************/
+    // This is the method your Webhook will eventually call!
+    public async Task<bool> MarkAsPaidAsync(int orderId)
+    {
+        var order = await _personalProjectContext.Order.FindAsync(orderId);
+        if (order == null) return false;
+
+        order.Status = "Paid";
+        await _personalProjectContext.SaveChangesAsync();
+        return true;
+    }
+
         /// <summary>
         /// Get an order by order id.
         /// </summary>
         /// <param name="orderId">The order id.</param>
         /// <returns>The order if found, otherwise null.</returns>
-/*******  837b6275-9448-4879-bc21-4bf4d4f8ab30  *******/
     public async Task<Order?> GetOrderAsync(string orderId)
     {
         if (!int.TryParse(orderId, out int id))

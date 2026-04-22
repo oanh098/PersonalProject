@@ -38,8 +38,6 @@ public class CartService : ICartService
                 if (existingItem != null)
                 {
                     existingItem.Quantity += item.Quantity;
-                    // Update cache after modification
-                    await AddItemAsync(merchantId, userId, existingItem);
                     
                 }
                 else
@@ -50,10 +48,8 @@ public class CartService : ICartService
         
 
         // 3. RECALCULATE all totals so they aren't 0
-            shoppingCart.SubTotalMoney = shoppingCart.Items.Sum(i => i.Quantity * i.PricePerUnit);
-            shoppingCart.VatAmount = shoppingCart.SubTotalMoney * 0.08m; // Assuming 8% VAT
-            shoppingCart.TotalMoney = shoppingCart.SubTotalMoney + shoppingCart.VatAmount;
-            shoppingCart.LastUpdated = DateTime.UtcNow;
+            UpdateCartTotals(shoppingCart);
+           
 
             var options = new DistributedCacheEntryOptions
             {
@@ -87,6 +83,17 @@ public class CartService : ICartService
         
     }
 
+    // Helper: Keeps math consistent everywhere
+    private void UpdateCartTotals(ShoppingCart cart)
+    {
+        cart.SubTotalMoney = cart.Items.Sum(i => i.Quantity * i.PricePerUnit);
+        cart.VatAmount = cart.SubTotalMoney * 0.08m;
+        cart.TotalMoney = cart.SubTotalMoney + cart.VatAmount;
+        cart.LastUpdated = DateTime.UtcNow;
+
+        
+    }
+
     public async Task<ShoppingCart> RemoveItemAsync(string merchantId, 
     string UserId, int productId)
     {
@@ -103,10 +110,9 @@ public class CartService : ICartService
 
         // Update cache after removal 
         // 4. Recalculate the Math (Otherwise the total stays the same!)
-        shoppingCart.SubTotalMoney = shoppingCart.Items.Sum(i => i.Quantity * i.PricePerUnit);
-        shoppingCart.VatAmount = shoppingCart.SubTotalMoney * 0.08m; 
-        shoppingCart.TotalMoney = shoppingCart.SubTotalMoney + shoppingCart.VatAmount;
-        shoppingCart.LastUpdated = DateTime.UtcNow;
+
+        UpdateCartTotals(shoppingCart);
+        
         var options = new DistributedCacheEntryOptions
         {
             AbsoluteExpirationRelativeToNow = TimeSpan.FromDays(7) // Cache for 7 days

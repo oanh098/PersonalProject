@@ -172,11 +172,47 @@ OrderService: Saves the order to PostgreSQL, checks if you have enough sugarcane
 
 PaymentService: Only knows how to "talk" to MoMo. It calculates security hashes, creates the MoMo link, and checks if the money actually arrived.
 
+Service,Responsibility,State
+CartService,"Manages the ""Draft"" (What the user is looking at/about to buy).",Volatile (Redis Cache)
+OrderService,"Manages the ""Contract"" (The official record of sale).",Permanent (Database)
+PaymentService,"Manages the ""Transfer"" (Talking to SePay/Banking APIs).",External (API/Webhooks)
+
 _____________________________
 Apr/ 6/ 1026
 Sau khi tạo mới postgres db trên render, xóa và tạo lại migrate cho table CartItem và Shopping Cart, update new connection string của db mới, push new git, deploy thành công... Git -m "postgresql expired, created new one, update local connection string, create new migrate"
 
+_____________________________
+Apr/ 16/ 1026
 
+Callback URl, webhook cho sepay đã hoàn tất tốt, cần xem lại OrderId luôn trả về 0, và tính toán lại ngay khi trả về QR.
+
+3. The Correct Workflow
+Step A: The Webhook (Your C# Code)
+Keep it exactly as you wrote it. It just updates the cache and says Ok to SePay.
+
+C#
+// ... logic to save PAID to cache ...
+return Ok(new { status = "success" }); // SePay is happy.
+Step B: The QR Page (Your JavaScript)
+The JavaScript on the QR page is like a "Guard" watching that cache key.
+
+JavaScript
+// This runs on the customer's screen
+const orderId = "FJ123"; // Get this from your model
+
+const checkPayment = setInterval(async () => {
+    const response = await fetch(`/api/payment/check-status/${orderId}`);
+    const status = await response.text();
+
+    if (status === "PAID") {
+        clearInterval(checkPayment); // Stop the loop
+        
+        // THIS is where the redirect happens!
+        window.location.href = "/ShoppingCart/OrderSuccess"; 
+    }
+}, 3000); // Check every 3 seconds
+
+nghĩa là tìm trang QR để insert javascript vào.
 
 
 

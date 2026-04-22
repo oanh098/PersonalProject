@@ -1,0 +1,37 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<img id="qr-code" src="@ViewBag.QrUrl" alt="Payment QR" />
+
+<input type="hidden" id="order-id" value="@ViewBag.OrderId" />
+
+<p id="status-message">Please scan to pay...</p>
+
+<script>
+    const orderId = document.getElementById('order-id').value;
+    const statusMsg = document.getElementById('status-message');
+
+    // 1. Polling: Ask server every 3 seconds if paid
+    const checkInterval = setInterval(async () => {
+        try {
+            const response = await fetch(`/api/payment/check-status/${orderId}`);
+            const result = await response.text(); // Assuming endpoint returns "PAID" or "PENDING"
+
+            if (result === "PAID") {
+                clearInterval(checkInterval);
+                statusMsg.innerText = "Payment Received! Redirecting...";
+                // Redirect user to success page
+                window.location.href = `/ShoppingCart/OrderSuccess?orderId=${orderId}`;
+            }
+        } catch (err) {
+            console.error("Polling error:", err);
+        }
+    }, 3000);
+
+    // 2. Add an animation to the QR image
+    document.getElementById('qr-code').addEventListener('click', () => {
+        alert("If the code is blurry, try refreshing the page!");
+    });
+</script>

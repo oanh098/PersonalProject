@@ -474,6 +474,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcHBpbmdDYXJ0XEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/ShoppingCart/OrderSuccess.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcHBpbmdDYXJ0XE9yZGVyU3VjY2Vzcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/ShoppingCart/Payment.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcHBpbmdDYXJ0XFBheW1lbnQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/WORKING/Net Framework/TutorialASP.NETCoreServerSide/PersonalProject/Views/ShoppingCart/SelectStall.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hvcHBpbmdDYXJ0XFNlbGVjdFN0YWxsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 

@@ -272,7 +272,8 @@ namespace PersonalProject.Controllers
             );
         }
 
-        public async Task<IActionResult> Checkout([FromBody] DTOCheckoutRequest request)
+        [HttpPost]
+        public async Task<IActionResult> Checkout([FromForm] DTOCheckoutRequest request)
         {
             //// 1. Check if the DTO rules (Required, EmailAddress, etc.) are met
             if(!ModelState.IsValid)
@@ -313,25 +314,64 @@ namespace PersonalProject.Controllers
             // Map your local Order obj to the DTOOrder for the PaymentService expects
             var dtoOrder = new DTOOrder
             {
+                OrderId = newOrder.Id,
+                OrderInfo = $"FJ{newOrder.Id}",
                 TotalAmount = (long)newOrder.TotalAmount, // Cast to long if needed
             };
-            string paymentUrl =  _paymentService.CreateSimpleVietQR(dtoOrder);
+            // string paymentUrl =  _paymentService.CreateSimpleVietQR(dtoOrder);
 
 
             // 5. Clear the cart after (Only if you are sure the user is moving to payment)
-            foreach (var item in cart.Items.ToList())
-            {
-                await _cartService.RemoveItemAsync(merchantId, userId, item.ProductId);
-            }
+            // foreach (var item in cart.Items.ToList())
+            // {
+            //     await _cartService.RemoveItemAsync(merchantId, userId, item.ProductId);
+            // }
 
             // 6. Return the QR payment URL to the frontend
 
+            // return Json(new { 
+            //     success = true,
+            //     message = $"Checkout successful! Your order has been placed. Thank you, {request.FullName}!",
+            //     redirectUrl = paymentUrl // This is now the VietQR page!
+            //     });
+
             return Json(new { 
-                success = true,
-                message = $"Checkout successful! Your order has been placed. Thank you, {request.FullName}!",
-                redirectUrl = paymentUrl // This is now the VietQR page!
-                });
+                success = true, 
+                message = "Checkout successful!", 
+                redirectUrl = Url.Action("Payment", "ShoppingCart", new { orderId = newOrder.Id }) 
+            });
+
+            //RedirectToAction("ActionName", "ControllerName")
+           // return RedirectToAction("Payment", "ShoppingCart", new { orderId = newOrder.Id });
+
+            // // Pass to the View
+            // ViewBag.QrUrl = paymentUrl;
+            // ViewBag.OrderId = paymentUrl; 
+            // return View();
         }
+
+        public async Task<IActionResult> Payment(string orderId)
+        {
+             var order = await _orderService.GetOrderAsync(orderId);
+            if (order == null) return NotFound();
+
+            var dtoOrder = new DTOOrder
+            {
+                OrderId = order.Id,
+                TotalAmount = (long) order.TotalAmount,
+                OrderInfo = $"Thanh toán FJ{order.Id}"
+            };
+            // Generate the URL string
+            string qrCodeUrl = _paymentService.CreateSimpleVietQR(dtoOrder);
+
+            // You can return the URL to the frontend, and the frontend 
+            // simply puts this in an <img src="..." /> tag.
+            //return Ok(new { url = qrCodeUrl }); 
+
+            ViewBag.QrUrl = qrCodeUrl;
+            ViewBag.OrderId = orderId;
+            return View();
+        } 
 
         [HttpGet]
         public async Task<IActionResult> GetCart()
@@ -344,6 +384,20 @@ namespace PersonalProject.Controllers
             
             // If the cart is null (empty cache), return a new empty cart object
             return Json(currentCart ?? new ShoppingCart());
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> OrderSuccess(string orderId)
+        {
+            var order = await _orderService.GetOrderAsync(orderId);
+            if (order == null)
+            {
+                // If the order isn't found, send them back home
+                return RedirectToAction("Index", "Home");
+            }
+
+            // Pass the order to the view
+            return View(order);
         }
 
 

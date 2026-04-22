@@ -102,7 +102,7 @@ public class PaymentService: IPaymentService
         // CRITICAL UPDATE: SePay works best with a simple, unique code.
         // Instead of "First Journey Order 123", we use "FJ123".
         // This ensures the code is NOT cut off by the bank's character limit.
-        string shortDescription = $"FJ{order.OrderId}"; 
+        string shortDescription = order.OrderInfo.Length > 20 ? $"FJ{order.OrderId}" : order.OrderInfo; 
         string encodedDescription = Uri.EscapeDataString(shortDescription);
 
         // 3. Construct the URL
@@ -120,3 +120,5 @@ public class PaymentService: IPaymentService
     
 
 }
+
+
