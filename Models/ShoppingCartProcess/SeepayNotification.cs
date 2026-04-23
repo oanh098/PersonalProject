@@ -1,17 +1,61 @@
 using System;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace PersonalProject.Models;
+namespace PersonalProject.Models.ShoppingCartProcess;
 
 public class SeepayNotification
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    public int Id { get; set; }
+
+    [Required]
+    [Column("gateway")]
+    [StringLength(100)]
     public string Gateway { get; set; } = string.Empty;
+
+    [Required]
+    [Column("transaction_date")]
     public string TransactionDate { get; set; } = string.Empty; // Example: "2024-06-01T12:34:56Z"
+
+    [Column("account_number")]
+    [StringLength(100)]    
     public string AccountNumber { get; set; } = string.Empty;
-    public string Content { get; set; } = string.Empty; // This is the "Order ID" that you sent in the "content" field of the payment request
-    public string TransferType { get; set; } = string.Empty; // Example: "IN" for incoming payment
-    public decimal TransferAmount { get; set; } = 0; // This maps to "transferAmount": 5000
-    public string ReferenceCode { get; set; } = string.Empty;
-    public long Id { get; set; } = 0;
+
+    [Column("sub_account")]
+    [StringLength(250)]
+    public string? SubAccount { get; set; }
+
+    [Required]
+    [Column("amount_in", TypeName = "decimal(20,2)")]
+    public decimal AmountIn { get; set; } = 0.00m;
+
+    [Required]
+    [Column("amount_out", TypeName = "decimal(20,2)")]
+    public decimal AmountOut { get; set; } = 0.00m;
+
+    [Required]
+    [Column("accumulated", TypeName = "decimal(20,2)")]
+    public decimal Accumulated { get; set; } = 0.00m;
+
+    [Column("code")]
+    [StringLength(250)]
+    public string? Code { get; set; }
+
+    [Column("transaction_content")]
+    public string? TransactionContent { get; set; }
+
+    [Column("reference_number")]
+    [StringLength(255)]
+    public string? ReferenceNumber { get; set; }
+
+    [Column("body")]
+    public string? Body { get; set; }
+
+    [Required]
+    [Column("created_at")]
+    public DateTime CreatedAt { get; set; } = DateTime.Now;    
 }
 
 
