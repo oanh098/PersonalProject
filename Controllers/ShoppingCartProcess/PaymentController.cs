@@ -88,6 +88,9 @@ namespace PersonalProject.Controllers
             // _logger.LogInformation("Webhook Received. Content: {Content}", data?.Content);
             if (data == null) return BadRequest("No data received");
             
+            var match = System.Text.RegularExpressions.Regex.Match(data.Content, @"FJ(\d+)");
+            var orderId = match.Success ? match.Groups[1].Value : null;
+            var statusKey = $"payment_status:{orderId}";
 
             // // 2. Return a 200 OK so SePay knows you got the message
             // return Ok(new { status = "success", message = "Data received by First Journey server" });
@@ -98,12 +101,13 @@ namespace PersonalProject.Controllers
            
             
             // Save "PAID" in the cache for 10 minutes
-            // await _cache.SetStringAsync(statusKey, "PAID", new DistributedCacheEntryOptions {
-            //     AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
-            // });
+             await _cache.SetStringAsync(statusKey, "PAID", new DistributedCacheEntryOptions {
+                 AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(10)
+             });
 
             return Ok(new { status = "success",
-                accountNumberUsed = data.AccountNumber // <--- Accessing the property directly
+                accountNumberUsed = data.AccountNumber, // <--- Accessing the property directly
+                statusKeyUsed   = statusKey
              });
         
         }

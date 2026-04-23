@@ -27,6 +27,15 @@ public class SeepayNotification
     [StringLength(250)]
     public string? SubAccount { get; set; }
 
+    [Column("code")]
+    [StringLength(100)]
+    public string? Code { get; set; }
+
+    [Column("content")]
+    [StringLength(250)]
+    public string? Content { get; set; }
+
+
     [Required]
     [Column("amount_in", TypeName = "decimal(20,2)")]
     public decimal AmountIn { get; set; } = 0.00m;
